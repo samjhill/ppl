@@ -170,6 +170,7 @@ response:
 
 ## Future Work
 * Script to set up database
+* Add stretching exercises to the database
 
 
 ## License
