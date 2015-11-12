@@ -1,0 +1,41 @@
+{
+  "name": "ppl",
+  "version": "0.0.1",
+  "description": "Generates a PPL workout",
+  "license": "MIT",
+  "repository": "https://github.com/samjhill/ppl",
+  "author": {
+    "name": "Sam Hill",
+    "email": "samuhill@gmail.com",
+    "url": "http://www.samjhill.com"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "xo && mocha"
+  },
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    ""
+  ],
+  "dependencies": {
+    "async": "^1.4.2",
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "http-auth": "^2.2.8",
+    "mongojs": "^1.4.1"
+  },
+  "devDependencies": {
+    "mocha": "^2.2.5",
+    "xo": "^0.7.1"
+  },
+  "xo": {
+    "envs": [
+      "node",
+      "mocha"
+    ]
+  }
+}
