@@ -27,6 +27,23 @@ listening on port 4141
 Now, just navigate to http://localhost:4141/status to see if it's working! 
 The default username and password is admin:admin, which you should change in data/users.htpasswd.
 
+### Database
+The movements in the database also has to be set up manually, which you can do by copying the json in `data/movements` and curling it into the /movement endpoint.
+
+### Data models
+The main object is called a movement, which looks like this:
+
+```json
+{
+  "name": "incline barbell bench press",
+  "video": "https://www.youtube.com/watch?v=11gY7Q5D5wo",
+  "bodyParts": ["anterior deltoids", "pectoralis major", "anterior deltoids"],
+  "sets": 3,
+  "reps": 5,
+  "restTime": 180,
+  "priority": 1
+}
+```
 
 ## API
 
@@ -37,7 +54,7 @@ Gets a workout for the day.
 
 example:
 
-`curl /day/workoutType/legs/mode/a`
+`curl http://localhost:4141/day/workoutType/legs/mode/a`
 
 ```json
 {
@@ -152,7 +169,7 @@ response:
 
 
 ## Future Work
-Add more information in the status command
+* Script to set up database
 
 
 ## License
