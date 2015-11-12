@@ -11,12 +11,16 @@ I started this project so I can
 3) Work on my NodeJS and MongoDB development skills
 
 
-## Install & Run
+## First Install
 
 ```shell
 git clone https://github.com/samjhill/ppl.git
 npm install
-node index.js
+sudo ./setup.sh #this sets up the database and starts the server
+```
+## Run
+```shell
+nodemon index.js
 ```
 
 You should see the following:
@@ -26,9 +30,6 @@ listening on port 4141
 
 Now, just navigate to http://localhost:4141/status to see if it's working! 
 The default username and password is admin:admin, which you should change in data/users.htpasswd.
-
-### Database
-The movements in the database also has to be set up manually, which you can do by copying the json in `data/movements` and curling it into the /movement endpoint.
 
 ### Data models
 The main object is called a movement, which looks like this:
@@ -140,7 +141,7 @@ Adds a movement to the database.
 
 example:
 
-`curl --data "{
+`curl --data '{
   "name": "incline barbell bench press",
   "video": "https://www.youtube.com/watch?v=11gY7Q5D5wo",
   "bodyParts": ["anterior deltoids", "pectoralis major", "anterior deltoids"],
@@ -148,7 +149,7 @@ example:
   "reps": 5,
   "restTime": 180,
   "priority": 1
-}" http://localhost:4141/movement`
+}' http://localhost:4141/movement`
 
 response:
 
@@ -169,8 +170,8 @@ response:
 
 
 ## Future Work
-* Script to set up database
 * Add stretching exercises to the database
+* I am considering changing the data model for the movement object and move sets, reps, restTime, and priority into a higher-level model, so it's easier to customize the workout.
 
 
 ## License
