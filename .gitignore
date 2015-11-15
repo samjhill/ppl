@@ -1,0 +1,4 @@
+config/auth.js
+config/secrets.js
+node_modules
+*.log

@@ -1,0 +1,32 @@
+<!-- views/profile.ejs -->
+<!doctype html>
+<html>
+<head>
+    <title>PPL - choose a routine</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <style>
+        body        { padding-top:80px; word-wrap:break-word; }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div class="page-header text-center">
+        <h1>Choose a routine</h1>
+    </div>
+
+    <div class="row">
+        
+        <div class="col-sm-6">
+            <ul>
+            <% for(var i=0; i<user.data.myRoutines.length; i++) {%>
+               <li><%= user.data.myRoutines[i].name %></li>
+            <% } %>
+            </ul>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
