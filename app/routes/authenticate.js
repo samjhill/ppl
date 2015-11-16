@@ -14,8 +14,8 @@ module.exports = function(app, passport) {
 		// process the login form
 		app.post('/login', function(req, res, next){
 			passport.authenticate('local-login', function(err, user, info) {
-				if (err) { console.log(err); return res.status(403); }
-				if (!user) { return res.status(404); }
+				if (err) { console.log(err); res.status(500); return res.send(); }
+				if (!user) { console.log('found no user'); res.status(403); return res.send(); }
 				req.logIn(user, function(err) {
 				  if (err) { console.log(err); return next(err); }
 				  return res.send(user);
