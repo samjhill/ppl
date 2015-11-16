@@ -11,9 +11,10 @@ module.exports = function(app, passport) {
 	});
 	
 	// ROUTINE DETAIL VIEW =======================
-	app.get('/routine', isLoggedIn, function(req, res) {
+	app.get('/routine/:position', isLoggedIn, function(req, res) {
 		res.render('routine.ejs', {
-			user : req.user
+			user : req.user,
+			routine : req.user.data.myRoutines[0]
 		});
 	});
 	
