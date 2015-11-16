@@ -14,10 +14,10 @@ module.exports = function(app, passport) {
 		// process the login form
 		app.post('/login', function(req, res, next){
 			passport.authenticate('local-login', function(err, user, info) {
-				if (err) { return next(err); }
+				if (err) { console.log(err); return res.status(403); }
 				if (!user) { return res.status(404); }
 				req.logIn(user, function(err) {
-				  if (err) { return next(err); }
+				  if (err) { console.log(err); return next(err); }
 				  return res.send(user);
 				});
 			})(req, res, next);
@@ -42,11 +42,16 @@ module.exports = function(app, passport) {
 		app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
 
 		// handle the callback after facebook has authenticated the user
-		app.get('/auth/facebook/callback',
-			passport.authenticate('facebook', {
-				successRedirect : '/routines',
-				failureRedirect : '/'
-			}));
+		app.get('/auth/facebook/callback', function(req, res, next){
+			passport.authenticate('facebook', function(err, user, info) {
+				if (err) { return next(err); }
+				if (!user) { return res.status(404); }
+				req.logIn(user, function(err) {
+				  if (err) { return next(err); }
+				  return res.send(user);
+				});
+			})(req, res, next);
+		});
 
 	// twitter --------------------------------
 
@@ -54,11 +59,16 @@ module.exports = function(app, passport) {
 		app.get('/auth/twitter', passport.authenticate('twitter', { scope : 'email' }));
 
 		// handle the callback after twitter has authenticated the user
-		app.get('/auth/twitter/callback',
-			passport.authenticate('twitter', {
-				successRedirect : '/routines',
-				failureRedirect : '/'
-			}));
+		app.get('/auth/twitter/callback', function(req, res, next){
+			passport.authenticate('twitter', function(err, user, info) {
+				if (err) { return next(err); }
+				if (!user) { return res.status(404); }
+				req.logIn(user, function(err) {
+				  if (err) { return next(err); }
+				  return res.send(user);
+				});
+			})(req, res, next);
+		});
 
 
 	// google ---------------------------------
@@ -67,11 +77,16 @@ module.exports = function(app, passport) {
 		app.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
 
 		// the callback after google has authenticated the user
-		app.get('/auth/google/callback',
-			passport.authenticate('google', {
-				successRedirect : '/routines',
-				failureRedirect : '/'
-			}));
+		app.get('/auth/google/callback', function(req, res, next){
+			passport.authenticate('google', function(err, user, info) {
+				if (err) { return next(err); }
+				if (!user) { return res.status(404); }
+				req.logIn(user, function(err) {
+				  if (err) { return next(err); }
+				  return res.send(user);
+				});
+			})(req, res, next);
+		});
 
 // =============================================================================
 // AUTHORIZE (ALREADY LOGGED IN / CONNECTING OTHER SOCIAL ACCOUNT) =============
