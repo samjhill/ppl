@@ -87,14 +87,14 @@ module.exports = function(app, passport) {
     //seed the first admin user
     //used only for db setup
     app.put('/api/user/email/:email/permissions', function(req, res, done) {
-        if (req.params['email'] === 'admin@admin.com'){
+        if (req.params['email'] === 'admin@admin.com' || isAdministrator){
             process.nextTick(function() {
                User.findOne({ 'local.email': req.params['email']}, function (err, user) {
                     if (err) {
                         console.log(err);
                     }
                     if (req.body.permissions) {
-                        user.local.permissions = req.body.permissions;
+                        user.permissions = req.body.permissions;
                         user.save(function(err) {
                             res.status(200);
                             res.send('successfully set user permissions');
