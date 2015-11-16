@@ -5,7 +5,7 @@ curl -H "Content-Type: application/json" -X POST -d '{
 }' http://localhost:8080/signup
 
 # promote to admin
-curl -H "Content-Type: application/json" -X PUT -d '{"permissions":{"administrator": true}}' http://localhost:8080/user/email/admin%40admin.com/permissions
+curl -H "Content-Type: application/json" -X PUT -d '{"permissions":{"administrator": true}}' http://localhost/api/user/email/admin%40admin.com/permissions
 
 # add data
 curl -H "Content-Type: application/json" -X POST -d '{
