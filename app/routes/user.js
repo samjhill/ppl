@@ -12,6 +12,17 @@ module.exports = function(app, passport) {
             })
     });
       
+    //get info about a user by id
+    //TODO: compare user to id
+    app.get('/api/user/id/:id', isLoggedIn, function(req, res, done) {
+      process.nextTick(function() {
+       User.findOne({ _id: req.params['id']}, function (err, user) {
+            res.status(200);
+            res.send(user);
+        });
+       })
+    });
+    
     app.get('/api/user/id/:id', isAdministrator, function(req, res, done) {
       process.nextTick(function() {
        User.findOne({ _id: req.params['id']}, function (err, user) {
