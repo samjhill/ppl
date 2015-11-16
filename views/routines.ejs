@@ -10,17 +10,20 @@
     <div class="page-header text-center">
         <h1>Routines</h1>
     </div>
-
+  
+    <% for(var i=0; i<myRoutines.length; i++) {%>
     <div class="row">
-        
-        <div class="col-sm-6">
-            <ul>
-            <% for(var i=0; i<user.data.myRoutines.length; i++) {%>
-               <li><a href="/routine/<%= i %>"> <%= user.data.myRoutines[i].name %></a></li>
+       <div><%= myRoutines[i].name %></div>
+       <p><%= myRoutines[i].description %></p>
+       <ul>
+            <% for(var j=0; j<myRoutines[i].workouts.length; j++) {%>
+                <li><a href="/routine/<%= i %>/workout/<%= j %>"> <%= myRoutines[i].workouts[j].name %></a></li>
             <% } %>
-            </ul>
-        </div>
+        </ul>
     </div>
+    <% } %>
+            
+    
 
 </div>
 </body>

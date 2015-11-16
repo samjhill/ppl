@@ -8,10 +8,14 @@
     <div class="page-header text-center">
         <h1><%= routine.name %></h1>
     </div>
-
+    
+    <% for(var i=0; i<routine.movements.length; i++) {%>
     <div class="row">
-        <%= routine %>
+        <p><%= routine.movements[i].movement.name %></p>
+        <div class="col-sm-6">
+        </div>
     </div>
+    <% } %>
 
 </div>
 </body>
