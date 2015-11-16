@@ -15,7 +15,7 @@
     <div class="row">
        <h2><%= myRoutines[i].name %></h2>
        <p><%= myRoutines[i].description %></p>
-       <ul>
+       <ul style="list-style-type:none;">
             <% for(var j=0; j<myRoutines[i].workouts.length; j++) {%>
                 <li><a href="/routine/<%= i %>/workout/<%= j %>"> <%= myRoutines[i].workouts[j].name %></a></li>
             <% } %>
