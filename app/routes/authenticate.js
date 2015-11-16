@@ -30,11 +30,16 @@ module.exports = function(app, passport) {
 		});
 
 		// process the signup form
-		app.post('/signup', passport.authenticate('local-signup', {
-			successRedirect : '/routines', // redirect to the secure profile section
-			failureRedirect : '/signup', // redirect back to the signup page if there is an error
-			failureFlash : true // allow flash messages
-		}));
+		app.post('/signup', function(req, res, next){
+			passport.authenticate('local-signup', function(err, user, info) {
+				if (err) { console.log(err); res.status(500); return res.send(); }
+				if (!user) { console.log('found no user'); res.status(403); return res.send(); }
+				req.logIn(user, function(err) {
+				  if (err) { console.log(err); return next(err); }
+				  return res.send(user);
+				});
+			})(req, res, next);
+		});
 
 	// facebook -------------------------------
 
@@ -96,11 +101,16 @@ module.exports = function(app, passport) {
 		app.get('/connect/local', function(req, res) {
 			res.render('connect-local.ejs', { message: req.flash('loginMessage') });
 		});
-		app.post('/connect/local', passport.authenticate('local-signup', {
-			successRedirect : '/routines', // redirect to the secure profile section
-			failureRedirect : '/connect/local', // redirect back to the signup page if there is an error
-			failureFlash : true // allow flash messages
-		}));
+		app.post('/connect/local', function(req, res, next){
+			passport.authenticate('local-signup', function(err, user, info) {
+				if (err) { return next(err); }
+				if (!user) { return res.status(404); }
+				req.logIn(user, function(err) {
+				  if (err) { return next(err); }
+				  return res.send(user);
+				});
+			})(req, res, next);
+		});
 
 	// facebook -------------------------------
 
@@ -108,11 +118,16 @@ module.exports = function(app, passport) {
 		app.get('/connect/facebook', passport.authorize('facebook', { scope : 'email' }));
 
 		// handle the callback after facebook has authorized the user
-		app.get('/connect/facebook/callback',
-			passport.authorize('facebook', {
-				successRedirect : '/routines',
-				failureRedirect : '/'
-			}));
+		app.get('/connect/facebook/callback', function(req, res, next){
+			passport.authorize('facebook', function(err, user, info) {
+				if (err) { return next(err); }
+				if (!user) { return res.status(404); }
+				req.logIn(user, function(err) {
+				  if (err) { return next(err); }
+				  return res.send(user);
+				});
+			})(req, res, next);
+		});
 
 	// twitter --------------------------------
 
@@ -120,11 +135,16 @@ module.exports = function(app, passport) {
 		app.get('/connect/twitter', passport.authorize('twitter', { scope : 'email' }));
 
 		// handle the callback after twitter has authorized the user
-		app.get('/connect/twitter/callback',
-			passport.authorize('twitter', {
-				successRedirect : '/routines',
-				failureRedirect : '/'
-			}));
+		app.get('/connect/twitter/callback', function(req, res, next){
+			passport.authorize('twitter', function(err, user, info) {
+				if (err) { return next(err); }
+				if (!user) { return res.status(404); }
+				req.logIn(user, function(err) {
+				  if (err) { return next(err); }
+				  return res.send(user);
+				});
+			})(req, res, next);
+		});
 
 
 	// google ---------------------------------
@@ -133,11 +153,16 @@ module.exports = function(app, passport) {
 		app.get('/connect/google', passport.authorize('google', { scope : ['profile', 'email'] }));
 
 		// the callback after google has authorized the user
-		app.get('/connect/google/callback',
-			passport.authorize('google', {
-				successRedirect : '/routines',
-				failureRedirect : '/'
-			}));
+		app.get('/connect/google/callback', function(req, res, next){
+			passport.authorize('google', function(err, user, info) {
+				if (err) { return next(err); }
+				if (!user) { return res.status(404); }
+				req.logIn(user, function(err) {
+				  if (err) { return next(err); }
+				  return res.send(user);
+				});
+			})(req, res, next);
+		});
 
     // =============================================================================
     // UNLINK ACCOUNTS =============================================================
@@ -152,7 +177,7 @@ module.exports = function(app, passport) {
 		user.local.email    = undefined;
 		user.local.password = undefined;
 		user.save(function(err) {
-			res.redirect('/routines');
+			res.send('unlinked local');
 		});
 	});
 
@@ -161,7 +186,7 @@ module.exports = function(app, passport) {
 		var user            = req.user;
 		user.facebook.token = undefined;
 		user.save(function(err) {
-			res.redirect('/routines');
+			res.send('unlinked facebook');
 		});
 	});
 
@@ -170,7 +195,7 @@ module.exports = function(app, passport) {
 		var user           = req.user;
 		user.twitter.token = undefined;
 		user.save(function(err) {
-			res.redirect('/routines');
+			res.send('unlinked twitter');
 		});
 	});
 
@@ -179,7 +204,7 @@ module.exports = function(app, passport) {
 		var user          = req.user;
 		user.google.token = undefined;
 		user.save(function(err) {
-			res.redirect('/routines');
+			res.send('unlinked google');
 		});
 	});
 
