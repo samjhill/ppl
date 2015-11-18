@@ -4,14 +4,13 @@
 
 	angular.module('ppl', ['ngRoute', 'ngCookies'])
 	.config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
-		$locationProvider.html5Mode(true);
 		$routeProvider
 		.when('/', {
 		    templateUrl: '../workout.html',
 		    controller: 'workoutController'
 		})
 		.when('/auth/facebook/callback', {
-			templateUrl: '../workout.html',
+		    templateUrl: '../workout.html',
 		    controller: 'workoutController'
 		})
 		.when('/routines', {
@@ -29,15 +28,10 @@
 			$rootScope.menu = false;
 			$location.path('/login');
 		}
-		else if (!$rootScope.user){
+		else {
 			$rootScope.loggedIn = true;
-			$rootScope.loading = true;
-			dataService.userInfo(window.localStorage.getItem("userID"))
-			.then(function (payload) {
-				$rootScope.user = payload.data;
-				$rootScope.loading = false;
-			});
 		}
+
 	}])
 	.service('dataService', function($q, $http){
 		return {
@@ -51,7 +45,7 @@
 
 			loginFB : function(body) {
 				return $http({
-					url:'/auth/facebook/login',
+					url:'/auth/facebook',
 					method: "GET"
 				});
 			},
@@ -77,6 +71,7 @@
 			$rootScope.loggedIn = true;
 			$location.path('/');
 		}
+
 		$scope.submit = function() {
 			var body = 
 			{
@@ -102,12 +97,10 @@
 	.controller('menuController', function($scope, $cookies, $rootScope, $location) {
 		$rootScope.menu = false;
 
-		$scope.active = '';
 
 
 		$scope.goTo = function(where) {
 			$rootScope.menu = false;
-			$scope.active = where;
 			$location.path('/' + where);
 		}
 
@@ -120,6 +113,8 @@
 	})
 	.controller('routineController', function ($scope, $rootScope, dataService, $location, $cookies) {
 		$scope.loading = true;
+
+		$rootScope.activeMenu = 'routines';
 
 		dataService.routines()
 		.then(function (payload) {
@@ -141,8 +136,7 @@
 		}
 	})
 	.controller('workoutController', function ($scope, $rootScope, $cookies, $location, dataService) {
-		
-
+		$rootScope.activeMenu = 'workout';
 	});
 	
 

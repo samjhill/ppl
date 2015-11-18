@@ -1,3 +1,5 @@
+var session      = require('express-session');
+
 module.exports = function(app, passport) {
 
 // =============================================================================
@@ -42,7 +44,21 @@ module.exports = function(app, passport) {
 		});
 
 	// facebook -------------------------------
+ app.get ('/auth/facebook', function authenticateFacebook (req, res, next) {
+    session.returnTo = '/#' + req.query.returnTo; 
+    next ();
+ },
+ passport.authenticate ('facebook'))
+ .get ('/auth/facebook/callback', function (req, res, next) {
+   var authenticator = passport.authenticate ('facebook', {
+     successRedirect: session.returnTo,
+     failureRedirect: '/login'
+    });
 
+  delete session.returnTo;
+  authenticator (req, res, next);
+})
+/*
 		// send to facebook to do the authentication
 		app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
 
@@ -57,7 +73,7 @@ module.exports = function(app, passport) {
 				});
 			})(req, res, next);
 		});
-
+ */
 	// twitter --------------------------------
 
 		// send to twitter to do the authentication
