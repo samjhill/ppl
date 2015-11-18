@@ -211,8 +211,11 @@ body {
 }
 
 .facebook-btn {
-
 	background-color: #3d5b99;
+}
+
+.twitter-btn {
+	background-color: #00aced;
 }
 
 .input:focus {

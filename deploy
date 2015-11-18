@@ -1,4 +1,4 @@
-ssh app@www.ppl.fitness <<EOF
+ssh app@45.55.1.41 <<EOF
   cd ~/ppl
   git pull
   npm install --production
