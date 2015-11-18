@@ -58,14 +58,14 @@
 
 			routines : function() {
 				return $http({
-					url:'/routines',
+					url:'/api/routines',
 					method: "GET"
 				});
 			},
 
 			userInfo : function(id) {
 				return $http({
-					url:'/user/id/' + id,
+					url:'/api/user/id/' + id,
 					method: "GET"
 				});
 			}
