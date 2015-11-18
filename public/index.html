@@ -1,0 +1,68 @@
+<!doctype html>
+<head>
+	<title>PPL</title>
+	<base href="/">
+	<link rel="stylesheet" href="assets/css/style.css">
+	<link rel="stylesheet" href="assets/css/animate.css">
+	<meta name="viewport" content="width=device-width">
+	<meta name="viewport" content="initial-scale=1.0">
+
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/angular.min.js"></script>
+	<script src="assets/js/angular-cookies.min.js"></script>
+	<script src="assets/js/angular-route.js"></script>
+
+	<script src="components/app.js"></script>
+</head>
+<body ng-cloak ng-app="ppl">
+
+	<div ng-include="'navbar.html'"></div>
+	<div  ng-view></div>
+</body>
+<!--
+	<span class="tcon-loader--spinner360" aria-label="loading">
+  <span class="tcon-visuallyhidden">loading</span>
+</span>
+-->
+
+<script>
+var didScroll;
+var lastScrollTop = 0;
+var delta = 5;
+var navbarHeight = $('header').outerHeight();
+
+$(window).scroll(function(event){
+    didScroll = true;
+});
+
+setInterval(function() {
+    if (didScroll) {
+        hasScrolled();
+        didScroll = false;
+    }
+}, 250);
+
+function hasScrolled() {
+    var st = $(this).scrollTop();
+    if(st == 0) {
+    	$('header').removeClass('nav-up').addClass('nav-down');
+    }
+    // Make sure they scroll more than delta
+    if(Math.abs(lastScrollTop - st) <= delta)
+        return;
+    
+    // If they scrolled down and are past the navbar, add class .nav-up.
+    // This is necessary so you never see what is "behind" the navbar.
+    if (st > lastScrollTop && st > navbarHeight){
+        // Scroll Down
+        $('header').removeClass('nav-down').addClass('nav-up');
+    } else {
+        // Scroll Up
+        if(st + $(window).height() < $(document).height()) {
+            $('header').removeClass('nav-up').addClass('nav-down');
+        }
+    }
+    
+    lastScrollTop = st;
+}
+</script>

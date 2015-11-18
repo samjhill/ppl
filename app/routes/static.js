@@ -1,21 +1,17 @@
-module.exports = function(app, passport) {
-	app.get('/', function(req, res) {
-		res.render('index.ejs');
-	});
+module.exports = function(app, passport, express) {
+	app.use('/', express.static('public/index.html'));
 	
 	// ROUTINES LIST VIEW =======================
 	app.get('/routines', isLoggedIn, function(req, res) {
-		res.render('routines.ejs', {
-			user : req.user,
-			myRoutines: req.user.data.myRoutines
+		res.render('../../public/routines.html', {
+			user : req.user
 		});
 	});
 	
 	// ROUTINE DETAIL VIEW =======================
-	app.get('/routine/:position/workout/:position2', isLoggedIn, function(req, res) {
+	app.get('/routines', isLoggedIn, function(req, res) {
 		res.render('routine.ejs', {
-			user : req.user,
-			routine : req.user.data.myRoutines[req.params['position']].workouts[req.params['position2']]
+			user : req.user
 		});
 	});
 	

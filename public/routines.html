@@ -1,0 +1,78 @@
+<div class="body-container">
+
+	<ul ng-hide="selectedRoutine" ng-init="stock = true; my = false;" class="top-menu">
+		<li ng-class="{'active': stock }" ng-click="my = false; stock = true;">
+			STOCK ROUTINES
+		</li>
+		<li ng-class="{'active': my }" ng-click="stock = false; my = true;">
+			MY ROUTINES
+		</li>
+	</ul>
+
+
+
+	<span style="margin-top:30px;" ng-show="loading" class="tcon-loader--spinner360" aria-label="loading">
+	  <span class="tcon-visuallyhidden">loading</span>
+	</span>
+
+	<div ng-hide="selectedRoutine" ng-click="setRoutine(routine)" ng-hide="loading || my" ng-repeat="routine in routines" class="routine">
+		<div class="routine-name">
+			{{routine.name}}
+		</div>
+		<div class='routine-overlay'></div>
+	</div>
+	<div style="position: relative;margin-top: 20px;" class="routine-name">
+		{{selectedRoutine.name}}
+	</div>
+	<div class="routine-description">
+		{{selectedRoutine.description}}
+	</div>
+	<div ng-show="selectedRoutine" ng-repeat="workout in selectedRoutine.workouts" >
+		<div class="workout-name">
+		{{workout.name}}
+		</div>
+		<ul class="movements">
+			<li ng-click="selectMuscleMenu();" ng-repeat="movement in workout.movements | orderBy:'priority'">
+				<div style="width: 100%;">
+					<div class="movement-name">
+					{{movement.movement.name}}
+					</div>
+					<div style="display:inline-block;text-align:center;width: 100%;">
+						<div class="movement-reps">
+							{{movement.reps}} <p class="movement-sub">REPS</p>
+						</div>
+						<img class="movement-cross" src="../assets/img/cross.svg">
+						<div class="movement-sets">
+							{{movement.sets}} <p class="movement-sub">SETS</p>
+						</div>
+					</div>
+					<div class="movement-rest">
+						{{movement.restTime}} <p class="movement-sub">SEC REST</p>
+					</div>
+					<div class="movement-muscle-container" ng-init="movement.showMuscle = false" style="text-align:center;padding-bottom:10px">
+						<a style="color: #444652;" target="_blank" href="{{movement.movement.video}}">
+							<img class="movement-video" src="../assets/img/video.svg">
+						</a>
+						<img ng-click="$event.stopPropagation();selectMuscleMenu();movement.showMuscle=true" class="movement-video" src="../assets/img/muscle.svg">
+						<ul ng-show="movement.showMuscle && movement.movement.bodyParts.length!=0" class="movement-muscle">
+							<div class="movement-arrow"></div>
+							<li ng-repeat="muscle in movement.movement.bodyParts">
+								{{muscle}}
+							</li>
+						</ul>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>
+<div ng-show="selectedRoutine" ng-click="selectedRoutine=undefined" class="sticky" ng-class="{'down':$root.menu}">
+	<div style="background-color: #72747D;" class="start-container">
+		<div style="width:auto;padding:15px;">
+			<img style="width: 18px;height: 18px;"class="start-flag" src="assets/img/back-arrow.svg">
+			<div style="position: relative;top: -2px;margin-left: 5px;display: inline-block;margin-top: 5px;font-weight: 500;">
+				BACK TO ROUTINES
+			</div>
+		</div>
+	</div>
+</div>

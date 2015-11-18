@@ -1,0 +1,28 @@
+<div ng-controller="menuController">
+	<ul ng-show="$root.menu" class="side-menu animated slideInLeft">
+		<img class="logo" src="assets/img/logo.svg"></img>
+		<li ng-class="{'active': active == ''}" ng-click="goTo('')">
+			WORKOUT
+		</li>
+		<li ng-class="{'active': active == 'routines'}" ng-click="goTo('routines')">
+			ROUTINES
+		</li>
+		<li>
+			STATS
+		</li>
+		<li>
+			VIDEOS
+		</li>
+		<li ng-click="logout()">
+			LOGOUT
+		</li>
+	</ul>
+	<div ng-show="$root.menu" ng-click="$root.menu=false;" class="overlay animated fadeIn">
+	</div>
+</div>
+<header ng-show="$root.loggedIn" ng-class="{'nav-up':$root.menu}" class="menu nav-down">
+	<div class="menu-container">
+		<div class="menu-btn" ng-click="$root.menu=!$root.menu">
+		</div>
+	</div>
+</header>
