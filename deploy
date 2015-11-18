@@ -1,7 +1,6 @@
-ssh app@45.55.1.41 <<EOF
+ssh app@www.ppl.fitness <<EOF
   cd ~/ppl
   git pull
   npm install --production
-  forever restartall
   exit
 EOF
