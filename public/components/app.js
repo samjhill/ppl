@@ -125,7 +125,35 @@
 		$scope.setRoutine = function(routine) {
 			$scope.selectedRoutine = routine;
 		}
-
+		
+		$scope.getNumber = function(num) {
+			return new Array(num);   
+		}
+		
+		/*
+		 * marks the set as complete
+		 */
+		$scope.completeSet = function(movement, setNumber, weight) {
+			if (movement.completed !== undefined) { // have we set up the 'completed' array?
+			}
+			else {
+				movement.completed = [];
+			}
+			
+			if (movement.completed[setNumber] !== undefined) {  //user wants to decrease the amount of reps
+				if (movement.completed[setNumber].reps === 0) { //if user has decreased the count to 0, reset it
+					movement.completed[setNumber].reps = movement.reps;
+				}
+				else { //decrease the count by 1
+					movement.completed[setNumber].reps = movement.completed[setNumber].reps - 1;
+				}
+			}
+			else {
+				movement.completed[setNumber] = {setNumber: setNumber, weight: weight, reps: movement.reps};
+			}
+			console.log(movement.completed);
+		}
+		
 		$scope.selectMuscleMenu = function() {
 			for(var x in $scope.selectedRoutine.workouts) {
 				for(var y in $scope.selectedRoutine.workouts[x].movements) {
