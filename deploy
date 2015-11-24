@@ -1,7 +1,5 @@
-ssh app@45.55.1.41 <<EOF
-  cd ~/ppl
-  git pull
-  forever restartall
-  npm install --production
-  exit
-EOF
+cd ~/ppl
+git pull
+npm install
+forever restartall
+exit
