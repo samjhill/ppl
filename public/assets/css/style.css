@@ -467,24 +467,10 @@ body {
 }
 
 .movements>li {
-	width:50%;
-
-	display: inline-flex;
+        margin: 0px 10px 0px 10px;
 	height: auto;
 	color:white;
 	background-color: #444652;
-}
-
-.movements>li:nth-child(odd) {
-	border-right:2px solid #363845;
-	width:calc(50% - 2px);
-	border-bottom:4px solid #363845;
-}
-
-.movements>li:nth-child(even) {
-	border-left:2px solid #363845;
-	width:calc(50% - 2px);
-	border-bottom:4px solid #363845;
 }
 
 .movements>li:nth-child(even)>div>.movement-muscle-container>ul>.movement-arrow {

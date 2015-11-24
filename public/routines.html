@@ -35,8 +35,9 @@
 			<li ng-click="selectMuscleMenu();" ng-repeat="movement in workout.movements | orderBy:'priority'">
 				<div style="width: 100%;">
 					<div class="movement-name">
-					{{ movement.movement.name }} | {{movement.sets}}  x {{movement.reps}} <p ng-show="movement.timeLeft" style="float:right">{{movement.timeLeft}} seconds left</p>
+					{{ movement.movement.name }} | {{movement.sets}}  x {{movement.reps}} <div ng-show="movement.timeLeft">{{movement.timeLeft}} seconds left</div>
 					</div>
+					
 					<div style="display:inline-block;text-align:left;">
 						<!--<input type="number" placeholder="weight" ng-model="weight" />-->
 						<div class="set-bubble-container">
