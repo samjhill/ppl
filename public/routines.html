@@ -35,31 +35,22 @@
 			<li ng-click="selectMuscleMenu();" ng-repeat="movement in workout.movements | orderBy:'priority'">
 				<div style="width: 100%;">
 					<div class="movement-name">
-					{{movement.movement.name}} 
+					{{ movement.movement.name }} | {{movement.sets}}  x {{movement.reps}} <p ng-show="movement.timeLeft" style="float:right">{{movement.timeLeft}} seconds left</p>
 					</div>
-					<div style="display:inline-block;text-align:center;width: 100%;">
+					<div style="display:inline-block;text-align:left;">
 						<!--<input type="number" placeholder="weight" ng-model="weight" />-->
 						<div class="set-bubble-container">
-							<div ng-click="completeSet(movement, $index, weight)" ng-class="{'set-complete': movement.completed[$index] !== undefined}" class="set-bubble" ng-repeat="i in getNumber(movement.sets) track by $index">
+							<div ng-click="completeSet(movement, $index, weight); startTimer(movement);" ng-class="{'set-complete': movement.completed[$index] !== undefined}" class="set-bubble" ng-repeat="i in getNumber(movement.sets) track by $index">
 								<div class="reps-number" ng-show="movement.completed[$index] !== undefined">{{movement.completed[$index].reps}}</div>
 							</div>
 						</div>
-						<div class="movement-sets">
-							{{movement.sets}} <p class="movement-sub">SETS</p>
-						</div>
-						<img class="movement-cross" src="../assets/img/cross.svg">
-						<div class="movement-reps">
-							{{movement.reps}} <p class="movement-sub">REPS</p>
-						</div>
 					</div>
-					<div class="movement-rest">
-						{{movement.restTime}} <p class="movement-sub">SEC REST</p>
-					</div>
-					<div class="movement-muscle-container" ng-init="movement.showMuscle = false" style="text-align:center;padding-bottom:10px">
+					
+					<div class="movement-muscle-container" ng-init="movement.showMuscle = false" style="float: right; display: inline-block;">
 						<a style="color: #444652;" target="_blank" href="{{movement.movement.video}}">
 							<img class="movement-video" src="../assets/img/video.svg">
 						</a>
-						<img ng-click="$event.stopPropagation();selectMuscleMenu();movement.showMuscle=true" class="movement-video" src="../assets/img/muscle.svg">
+						<img ng-click="$event.stopPropagation();selectMuscleMenu();movement.showMuscle= !movement.showMuscle" class="movement-video" src="../assets/img/muscle.svg">
 						<ul ng-show="movement.showMuscle && movement.movement.bodyParts.length!=0" class="movement-muscle">
 							<div class="movement-arrow"></div>
 							<li ng-repeat="muscle in movement.movement.bodyParts track by $index">

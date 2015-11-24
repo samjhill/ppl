@@ -448,10 +448,8 @@ body {
 }
 
 .movement-reps, .movement-sets {
-	font-size: 2em;
-    width: 43%;
     display: inline-block;
-    text-align: center;
+    float:right;
 }
 
 .movement-reps {
@@ -528,8 +526,8 @@ body {
 }
 
 .movement-name {
-	text-align: center;
-	text-transform: uppercase;
+	text-align: left;
+	text-transform: capitalize;
 	padding: 10px;
 	height: 40px;
 	margin-top:20px;
@@ -586,7 +584,6 @@ body {
 
 .movement-video {
 	height:60px;
-	padding:10px;
 	display: inline-block;
 }
 

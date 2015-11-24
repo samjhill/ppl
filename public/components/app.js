@@ -154,6 +154,26 @@
 			console.log(movement.completed);
 		}
 		
+		/*
+		 * Timer functions
+		 */
+		$scope.startTimer = function(movement){
+			movement.timeLeft = movement.restTime;
+			
+			var i = setInterval(timer, 1000);
+			
+			function timer() {
+				if ( movement.timeLeft < 1) {
+					clearInterval(i);
+					return;
+				}
+				movement.timeLeft -= 1;
+				
+				$scope.$apply();
+			}
+		}
+		/* end timer functions */
+		
 		$scope.selectMuscleMenu = function() {
 			for(var x in $scope.selectedRoutine.workouts) {
 				for(var y in $scope.selectedRoutine.workouts[x].movements) {
@@ -162,6 +182,7 @@
 			}
 
 		}
+		
 	})
 	.controller('workoutController', function ($scope, $rootScope, $cookies, $location, dataService) {
 		$rootScope.activeMenu = 'workout';
