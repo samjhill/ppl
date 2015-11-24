@@ -38,7 +38,7 @@
 					{{movement.movement.name}} 
 					</div>
 					<div style="display:inline-block;text-align:center;width: 100%;">
-						<input type="number" placeholder="weight" ng-model="weight" />
+						<!--<input type="number" placeholder="weight" ng-model="weight" />-->
 						<div class="set-bubble-container">
 							<div ng-click="completeSet(movement, $index, weight)" ng-class="{'set-complete': movement.completed[$index] !== undefined}" class="set-bubble" ng-repeat="i in getNumber(movement.sets) track by $index">
 								<div class="reps-number" ng-show="movement.completed[$index] !== undefined">{{movement.completed[$index].reps}}</div>
