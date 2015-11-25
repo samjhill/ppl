@@ -105,6 +105,7 @@
 		}
 
 		$scope.logout = function() {
+			console.log('logging out');
 			$cookies.remove('connect.sid');
 			$rootScope.menu = false;
 			$rootScope.loggedIn = false;
@@ -150,6 +151,7 @@
 			}
 			else {
 				movement.completed[setNumber] = {setNumber: setNumber, weight: weight, reps: movement.reps};
+				$scope.startTimer(movement);
 			}
 			console.log(movement.completed);
 		}
