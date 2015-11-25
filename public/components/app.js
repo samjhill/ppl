@@ -160,19 +160,24 @@
 		 * Timer functions
 		 */
 		$scope.startTimer = function(movement){
-			movement.timeLeft = movement.restTime;
-			
-			var i = setInterval(timer, 1000);
+			if (movement.timeLeft) { //timer has already been started; we just want to reset it
+				movement.timeLeft = movement.restTime;
+			}
+			else {
+				movement.timeLeft = movement.restTime;
+				
+				var i = setInterval(timer, 1000);
+			}
 			
 			function timer() {
-				if ( movement.timeLeft < 1) {
-					clearInterval(i);
-					return;
+					if ( movement.timeLeft < 1) {
+						clearInterval(i);
+						return;
+					}
+					movement.timeLeft -= 1;
+					
+					$scope.$apply();
 				}
-				movement.timeLeft -= 1;
-				
-				$scope.$apply();
-			}
 		}
 		/* end timer functions */
 		
