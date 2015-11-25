@@ -444,7 +444,7 @@ body {
 .movements {
 	list-style: none;
 	padding:0px;
-	margin:0px;
+	margin:0px 0px 4em 0px;
 }
 
 .movement-reps, .movement-sets {
