@@ -32,7 +32,7 @@
 		{{workout.name}}
 		</div>
 		<ul class="movements">
-			<li ng-click="selectMuscleMenu();" ng-repeat="movement in workout.movements | orderBy:'priority'">
+			<li ng-click="selectMuscleMenu();" ng-repeat="movement in workout.movements | orderBy:'priority'" style="display: inline-block; width:95%; margin-bottom: .5em;">
 				<div style="width: 100%;">
 					<div class="movement-name">
 					{{ movement.movement.name }} | {{movement.sets}}  x {{movement.reps}} <div ng-show="movement.timeLeft" style="text-transform: none">rest for {{movement.timeLeft}} more seconds</div>
