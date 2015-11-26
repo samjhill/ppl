@@ -143,7 +143,8 @@
 			
 			if (movement.completed[setNumber] !== undefined) {  //user wants to decrease the amount of reps
 				if (movement.completed[setNumber].reps === 0) { //if user has decreased the count to 0, reset it
-					movement.completed[setNumber].reps = movement.reps;
+					delete movement.completed[setNumber];
+					movement.timeLeft = 0;
 				}
 				else { //decrease the count by 1
 					movement.completed[setNumber].reps = movement.completed[setNumber].reps - 1;
