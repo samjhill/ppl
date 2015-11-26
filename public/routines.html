@@ -47,18 +47,19 @@
 						</div>
 					</div>
 					
-					<div class="movement-muscle-container" ng-init="movement.showMuscle = false" style="float: right; display: inline-block;">
+					<div class="movement-muscle-container" ng-init="showMuscle = false" style="float: right; display: inline-block;">
 						<a style="color: #444652;" target="_blank" href="{{movement.movement.video}}">
 							<img class="movement-video" src="../assets/img/video.svg">
 						</a>
-						<img ng-click="$event.stopPropagation();selectMuscleMenu();movement.showMuscle= !movement.showMuscle" class="movement-video" src="../assets/img/muscle.svg">
-						<ul ng-show="movement.showMuscle && movement.movement.bodyParts.length!=0" class="movement-muscle">
+						<img ng-click="showMuscle= !showMuscle" class="movement-video" src="../assets/img/muscle.svg">
+					</div>
+					
+					<ul ng-show="showMuscle && movement.movement.bodyParts.length!=0" class="movement-muscle">
 							<div class="movement-arrow"></div>
 							<li ng-repeat="muscle in movement.movement.bodyParts track by $index">
 								{{muscle}}
 							</li>
 						</ul>
-					</div>
 				</div>
 			</li>
 		</ul>

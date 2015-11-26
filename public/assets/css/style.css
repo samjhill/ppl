@@ -520,8 +520,7 @@ body {
 }
 
 .movement-muscle {
-	position: absolute;
-    background: #363845;
+    background: #575965;
     list-style: none;
     padding: 15px;
     margin: 0px;
@@ -549,7 +548,7 @@ body {
 
 .movement-muscle>li {
 	padding-bottom:15px;
-	text-transform: uppercase;
+	text-transform: capitalize;
 }
 
 .movement-cross {

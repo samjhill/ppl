@@ -185,7 +185,7 @@
 		$scope.selectMuscleMenu = function() {
 			for(var x in $scope.selectedRoutine.workouts) {
 				for(var y in $scope.selectedRoutine.workouts[x].movements) {
-					$scope.selectedRoutine.workouts[x].movements[y].showMuscle = false;
+					$scope.selectedRoutine.workouts[x].movements[y].showMuscle = !$scope.selectedRoutine.workouts[x].movements[y].showMuscle;
 				}
 			}
 
