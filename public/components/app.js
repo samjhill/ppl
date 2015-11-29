@@ -172,8 +172,15 @@
 		console.log('getting info for id ' + window.localStorage.getItem("userID"));
 		dataService.userInfo(window.localStorage.getItem("userID"))
 		.then(function(payload){
-			$scope.completedRoutines = payload.data.data.completedRoutines;
-			$scope.previousRoutine = $scope.completedRoutines[$scope.completedRoutines.length -1];
+			if (payload.data.data.completedRoutines) {
+				$scope.completedRoutines = payload.data.data.completedRoutines;
+				$scope.previousRoutine = $scope.completedRoutines[$scope.completedRoutines.length -1];
+			}
+			else {
+				$scope.completedRoutines = [];
+			}
+			
+			
 			
 			//look up the next routine in the series
 			dataService.routine($scope.previousRoutine.routineId)
