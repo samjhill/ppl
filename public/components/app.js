@@ -172,11 +172,11 @@
 		console.log('getting info for id ' + window.localStorage.getItem("userID"));
 		dataService.userInfo(window.localStorage.getItem("userID"))
 		.then(function(payload){
-			if (payload.data.data.completedRoutines) {
+			if (payload.data.data && payload.data.data.completedRoutines) { //if there is prior user data
 				$scope.completedRoutines = payload.data.data.completedRoutines;
 				$scope.previousRoutine = $scope.completedRoutines[$scope.completedRoutines.length -1];
 			}
-			else {
+			else { //new user
 				$scope.completedRoutines = [];
 			}
 			
