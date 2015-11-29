@@ -206,7 +206,7 @@
 				for(var i = 0; i < payload.data.length; i++){
 					if(payload.data[i].workouts.length > 0){
 						$rootScope.activeWorkout = payload.data[i].workouts[0];
-						$rootScope.activeWorkout = payload.data[i]._id;
+						$rootScope.activeWorkout.routineId = payload.data[i]._id;
 						$location.path('/activeWorkout');
 					}
 				}
