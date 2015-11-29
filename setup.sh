@@ -2,7 +2,7 @@
 curl -H "Content-Type: application/json" -X POST -d '{
   "email": "admin@admin.com",
   "password": "ppl"
-}' http://localhost:8080/signup
+}' http://localhost/signup
 
 # promote to admin
 curl -H "Content-Type: application/json" -X PUT -d '{"permissions":{"administrator": true}}' http://localhost/api/user/email/admin%40admin.com/permissions
@@ -12,97 +12,97 @@ curl -H "Content-Type: application/json" -X POST -d '{
   "name": "flat barbell bench press",
   "video": "https://www.youtube.com/watch?v=gRVjAtPip0Y",
   "bodyParts": ["pectoralis major", "triceps brachii", "anterior deltoids"]
-}' http://localhost:8080/api/movement
+}' http://localhost/api/movement
 
 curl -H "Content-Type: application/json" -X POST -d '{
   "name": "standing barbell overhead press",
   "video": "https://www.youtube.com/watch?v=F3QY5vMz_6I",
   "bodyParts": ["biceps brachialis", "anterior deltoids", "teres minor", "teres major", "latissimus dorsi", "triceps brachii", "infraspinatus", "trapezius"]
-}' http://localhost:8080/api/movement
+}' http://localhost/api/movement
 
 curl -H "Content-Type: application/json" -X POST -d '{
   "name": "incline barbell bench press",
   "video": "https://www.youtube.com/watch?v=11gY7Q5D5wo",
   "bodyParts": ["anterior deltoids", "pectoralis major", "anterior deltoids"]
-}' http://localhost:8080/api/movement
+}' http://localhost/api/movement
 
 curl -H "Content-Type: application/json" -X POST -d '{
   "name": "dumbbell side lateral raise",
   "video": "https://www.youtube.com/watch?v=kDqklk1ZESo",
   "bodyParts": ["anterior deltoids", "trapezius", "anterior deltoids", "triceps medial head", "triceps long head", "teres minor", "teres major", "infraspinatus"]
-}' http://localhost:8080/api/movement
+}' http://localhost/api/movement
 
 curl -H "Content-Type: application/json" -X POST -d '{
   "name": "rope pushdown",
   "video": "https://www.youtube.com/watch?v=vB5OHsJ3EME",
   "bodyParts": ["triceps medial head", "triceps long head"]
-}' http://localhost:8080/api/movement
+}' http://localhost/api/movement
 
 curl -H "Content-Type: application/json" -X POST -d '{
   "name": "dumbbell shrug",
   "video": "https://www.youtube.com/watch?v=g6qbq4Lf1FI",
   "bodyParts": ["trapezius", "levator scapulae", "rhomboid minor", "rhomboid major"]
-}' http://localhost:8080/api/movement
+}' http://localhost/api/movement
 
 curl -H "Content-Type: application/json" -X POST -d '{
   "name": "barbell row",
   "video": "https://www.youtube.com/watch?v=G8l_8chR5BE",
   "bodyParts": ["erector spinae", "trapezius", "teres major", "rear deltoid", "latissimus dorsi"]
-}' http://localhost:8080/api/movement
+}' http://localhost/api/movement
 
 curl -H "Content-Type: application/json" -X POST -d '{
   "name": "lat pulldown",
   "video": "https://www.muscleandstrength.com/exercises/lat-pull-down.html",
   "bodyParts": ["latissimus dorsi", "scapular"]
-}' http://localhost:8080/api/movement
+}' http://localhost/api/movement
 
 curl -H "Content-Type: application/json" -X POST -d '{
   "name": "deadlift",
   "video": "https://www.youtube.com/watch?v=-4qRntuXBSc",
   "bodyParts": ["butt", "upper thighs", "hamstrings", "lower back", "upper middle back", "traps"]
-}' http://localhost:8080/api/movement
+}' http://localhost/api/movement
 
 curl -H "Content-Type: application/json" -X POST -d '{
   "name": "face-pull",
   "video": "https://www.youtube.com/watch?v=rep-qVOkqgk",
   "bodyParts": ["trapezius", "rear deltoids", "hamstrings"]
-}' http://localhost:8080/api/movement
+}' http://localhost/api/movement
 
 curl -H "Content-Type: application/json" -X POST -d '{
   "name": "barbell bicep curl",
   "video": "https://www.youtube.com/watch?v=kwG2ipFRgfo",
   "bodyParts": ["biceps brachii", "brachialis"]
-}' http://localhost:8080/api/movement
+}' http://localhost/api/movement
 
 curl -H "Content-Type: application/json" -X POST -d '{
   "name": "hammer curls",
   "video": "https://www.youtube.com/watch?v=TwD-YGVP4Bk",
   "bodyParts": ["biceps brachii", "brachialis"]
-}' http://localhost:8080/api/movement
+}' http://localhost/api/movement
 
 curl -H "Content-Type: application/json" -X POST -d '{
   "name": "barbell squat",
   "video": "https://www.youtube.com/watch?v=1xMaFs0L3ao",
   "bodyParts": ["gluteus maximus", "gluteus medius", "adductors", "gracilis", "sartorius", "vastus medialis", "biceps fernoris", "tensor fascia lata", "rectus femoris", "vastus lateralis", "vastus intermedius"]
-}' http://localhost:8080/api/movement
+}' http://localhost/api/movement
 
 curl -H "Content-Type: application/json" -X POST -d '{
   "name": "leg extension",
   "video": "https://www.youtube.com/watch?v=YyvSfVjQeL0",
   "bodyParts": ["vastus lateralis", "vastus intermedius", "vastus medialis"]
-}' http://localhost:8080/api/movement
+}' http://localhost/api/movement
 
 curl -H "Content-Type: application/json" -X POST -d '{
   "name": "hamstring curl",
   "video": "https://www.youtube.com/watch?v=GaSHOocFTVg",
   "bodyParts": ["gastrocnemius", "lower back", "abdominals"]
-}' http://localhost:8080/api/movement
+}' http://localhost/api/movement
 
 curl -H "Content-Type: application/json" -X POST -d '{
   "name": "standing calf raise",
   "video": "https://www.youtube.com/watch?v=-M4-G8p8fmc",
   "bodyParts": ["calves", "peroneus", "flexor hallucis longus", "flexor digitorum longus"]
-}' http://localhost:8080/api/movement
+}' http://localhost/api/movement
 
 curl -H "Content-Type: application/json" -X POST -d '{
     "name": "PPL",
@@ -417,4 +417,4 @@ curl -H "Content-Type: application/json" -X POST -d '{
             ]
         }
     ]
-}' http://localhost:8080/api/routines
+}' http://localhost/api/routines
