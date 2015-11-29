@@ -17,6 +17,11 @@ module.exports = function(app, passport) {
     app.get('/api/user/id/:id', isLoggedIn, function(req, res, done) {
       process.nextTick(function() {
        User.findOne({ _id: req.params['id']}, function (err, user) {
+            if (err) {
+                console.log(err);
+                res.status(500);
+                res.send();
+            }
             res.status(200);
             res.send(user);
         });
@@ -26,6 +31,11 @@ module.exports = function(app, passport) {
     app.get('/api/user/id/:id', isAdministrator, function(req, res, done) {
       process.nextTick(function() {
        User.findOne({ _id: req.params['id']}, function (err, user) {
+            if (err) {
+                console.log(err);
+                res.status(500);
+                res.send();
+            }
             res.status(200);
             res.send(user);
         });
@@ -131,7 +141,8 @@ function isLoggedIn(req, res, next) {
 	if (req.isAuthenticated())
 		return next();
 
-	res.redirect('/');
+	res.status(403);
+        res.send();
 }
 
 var isAdministrator = function(req, res, next){

@@ -11,6 +11,14 @@ module.exports = function(app, passport) {
             })
     });
       
+    app.get('/api/routine/id/:id', function(req, res, done) {
+            process.nextTick(function() {
+                Routine.findOne({ _id: req.params['id']}, function (err, routine) {
+                    res.send(routine);
+                });
+            })
+    });
+    
     app.get('/api/routine/name/:name', function(req, res, done) {
             process.nextTick(function() {
                 Routine.find({ name: req.params['name']}, function (err, user) {

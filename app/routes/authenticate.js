@@ -9,9 +9,9 @@ module.exports = function(app, passport) {
 	// locally --------------------------------
 		// LOGIN ===============================
 		// show the login form
-		app.get('/login', function(req, res) {
-			res.render('login.ejs', { message: req.flash('loginMessage') });
-		});
+		//app.get('/login', function(req, res) {
+		//	res.render('login.ejs', { message: req.flash('loginMessage') });
+		//});
 
 		// process the login form
 		app.post('/login', function(req, res, next){
@@ -44,21 +44,21 @@ module.exports = function(app, passport) {
 		});
 
 	// facebook -------------------------------
- app.get ('/auth/facebook', function authenticateFacebook (req, res, next) {
-    session.returnTo = '/#' + req.query.returnTo; 
-    next ();
- },
- passport.authenticate ('facebook'))
- .get ('/auth/facebook/callback', function (req, res, next) {
-   var authenticator = passport.authenticate ('facebook', {
-     successRedirect: session.returnTo,
-     failureRedirect: '/login'
-    });
-
-  delete session.returnTo;
-  authenticator (req, res, next);
-})
-/*
+	app.get ('/auth/facebook', function authenticateFacebook (req, res, next) {
+	   session.returnTo = '/#' + req.query.returnTo; 
+	   next();
+	},
+	passport.authenticate ('facebook'))
+	.get ('/auth/facebook/callback', function (req, res, next) {
+	  var authenticator = passport.authenticate ('facebook', {
+	    successRedirect: session.returnTo,
+	    failureRedirect: '/login'
+	   });
+       
+	 delete session.returnTo;
+	 authenticator (req, res, next);
+       })
+       /*
 		// send to facebook to do the authentication
 		app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
 
@@ -224,7 +224,17 @@ module.exports = function(app, passport) {
 		});
 	});
 
-
+	//logout
+	app.delete('/session', function(req, res) {
+		console.log('deleting session');
+		    // this destroys the current session (not really necessary because you get a new one
+		    req.session.destroy(function(err) {
+			console.log('error:');
+			console.log(err);
+			res.send();
+		    });
+		
+	});
 };
 
 // route middleware to ensure user is logged in
@@ -232,5 +242,5 @@ function isLoggedIn(req, res, next) {
 	if (req.isAuthenticated())
 		return next();
 
-	res.redirect('/');
+	res.redirect('/login');
 };

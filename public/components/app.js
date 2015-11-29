@@ -9,8 +9,16 @@
 		    templateUrl: '../workout.html',
 		    controller: 'workoutController'
 		})
-		.when('/auth/facebook/callback', {
+		.when('/workout', {
 		    templateUrl: '../workout.html',
+		    controller: 'workoutController'
+		})
+		.when('/activeWorkout', {
+		    templateUrl: '../activeWorkout.html',
+		    controller: 'activeWorkoutController'
+		})
+		.when('/auth/facebook/callback', {
+		    templateUrl: '../routines.html',
 		    controller: 'workoutController'
 		})
 		.when('/routines', {
@@ -42,21 +50,44 @@
 					data: body
 				});
 			},
-
+			
+			logout : function() {
+				return $http({
+					url:'/session',
+					method: "DELETE"
+				});
+			},
+			
 			loginFB : function(body) {
 				return $http({
 					url:'/auth/facebook',
 					method: "GET"
 				});
 			},
-
+			
+			routine : function(id) {
+				return $http({
+					url:'/api/routine/id/' + id,
+					method: "GET"
+				});
+			},
+			
+			
 			routines : function() {
 				return $http({
 					url:'/api/routines',
 					method: "GET"
 				});
 			},
-
+			
+			completedRoutine : function(userId, body) {
+				return $http({
+					url:'/api/user/id/' + userId + '/completedRoutine',
+					method: "POST",
+					data: body
+				});
+			},
+			
 			userInfo : function(id) {
 				return $http({
 					url:'/api/user/id/' + id,
@@ -67,10 +98,10 @@
 	})
 	.controller('loginController', function($scope, dataService, $cookies, $location, $rootScope, $sce) {
 		$rootScope.loggedIn = false;
-		if($cookies.get('connect.sid')) {
-			$rootScope.loggedIn = true;
-			$location.path('/');
-		}
+		//if($cookies.get('connect.sid')) {
+		//	$rootScope.loggedIn = true;
+		//	$location.path('/');
+		//}
 
 		$scope.submit = function() {
 			var body = 
@@ -91,10 +122,14 @@
 			dataService.loginFB()
 			.then(function (payload) {
 				console.log(payload.data);
+				$rootScope.user = angular.copy(payload.data);
+				$rootScope.loggedIn = true;
+				window.localStorage.setItem("userID", payload.data._id);
+				$location.path('/');
 			});
 		}
 	})
-	.controller('menuController', function($scope, $cookies, $rootScope, $location) {
+	.controller('menuController', function($scope, $cookies, $rootScope, $location, dataService) {
 		$rootScope.menu = false;
 
 
@@ -105,11 +140,16 @@
 		}
 
 		$scope.logout = function() {
-			console.log('logging out');
-			$cookies.remove('connect.sid');
-			$rootScope.menu = false;
-			$rootScope.loggedIn = false;
-			$location.path('/login');
+			dataService.logout()
+			.then(function(payload){
+				console.log(payload);
+				console.log('logging out');
+				delete $cookies['connect.sid'];
+				$rootScope.menu = false;
+				$rootScope.loggedIn = false;
+				$location.path('/login');
+			});
+			
 		}
 	})
 	.controller('routineController', function ($scope, $rootScope, dataService, $location, $cookies) {
@@ -123,9 +163,62 @@
 			$scope.routines = payload.data;
 		})
 
-		$scope.setRoutine = function(routine) {
-			$scope.selectedRoutine = routine;
+		
+		
+	})
+	.controller('workoutController', function ($scope, $rootScope, $cookies, $location, dataService) {
+		$rootScope.activeMenu = 'workout';
+		
+		console.log('getting info for id ' + window.localStorage.getItem("userID"));
+		dataService.userInfo(window.localStorage.getItem("userID"))
+		.then(function(payload){
+			$scope.completedRoutines = payload.data.data.completedRoutines;
+			$scope.previousRoutine = $scope.completedRoutines[$scope.completedRoutines.length -1];
+			
+			//look up the next routine in the series
+			dataService.routine($scope.previousRoutine.routineId)
+			.then(function(payload){
+				var routine = payload.data;
+				
+				for(var i = 0; i < routine.workouts.length; i++){
+					if ($scope.previousRoutine.name == routine.workouts[i].name) {
+						$scope.nextRoutine = routine.workouts[(i + 1) % routine.workouts.length]; //set next routine
+						$scope.nextRoutine.routineId = routine._id; // set parent id
+						break;
+					}
+				}
+			});
+		});
+		
+		/*
+		 * starts the tutorial workout
+		 */
+		$scope.startFirstWorkout = function(){
+			dataService.routines()
+			.then(function (payload) {
+				for(var i = 0; i < payload.data.length; i++){
+					if(payload.data[i].workouts.length > 0){
+						$rootScope.activeWorkout = payload.data[i].workouts[0];
+						$location.path('/activeWorkout');
+					}
+				}
+				
+			})
+			
+			
+			
 		}
+			
+		/*
+		 * starts the next workout in the series
+		 */
+		$scope.startWorkout = function(){
+			$location.path('/activeWorkout');
+			$rootScope.activeWorkout = $scope.nextRoutine;
+		}
+	})
+	.controller('activeWorkoutController', function ($scope, $rootScope, $cookies, $location, dataService) {
+		$rootScope.activeMenu = 'workout';
 		
 		$scope.getNumber = function(num) {
 			return new Array(num);   
@@ -182,18 +275,20 @@
 		}
 		/* end timer functions */
 		
-		$scope.selectMuscleMenu = function() {
-			for(var x in $scope.selectedRoutine.workouts) {
-				for(var y in $scope.selectedRoutine.workouts[x].movements) {
-					$scope.selectedRoutine.workouts[x].movements[y].showMuscle = !$scope.selectedRoutine.workouts[x].movements[y].showMuscle;
-				}
-			}
-
-		}
+		/*
+		 * saves & completes the user's current workout
+		 */
+		$scope.saveWorkout = function( workout ){
+			var currentdate = new Date(); //add the date to the object
+			workout.dateCompleted = currentdate;
+			
+			dataService.completedRoutine(window.localStorage.getItem("userID"), workout)
+			.then(function (payload) {
+				console.log(payload);
+				$location.path('workout');
+			});
+		};
 		
-	})
-	.controller('workoutController', function ($scope, $rootScope, $cookies, $location, dataService) {
-		$rootScope.activeMenu = 'workout';
 	});
 	
 

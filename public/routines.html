@@ -21,49 +21,7 @@
 		</div>
 		<div class='routine-overlay'></div>
 	</div>
-	<div style="position: relative;margin-top: 20px;" class="routine-name">
-		{{selectedRoutine.name}}
-	</div>
-	<div class="routine-description">
-		{{selectedRoutine.description}}
-	</div>
-	<div ng-show="selectedRoutine" ng-repeat="workout in selectedRoutine.workouts" >
-		<div class="workout-name">
-		{{workout.name}}
-		</div>
-		<ul class="movements">
-			<li ng-click="selectMuscleMenu();" ng-repeat="movement in workout.movements | orderBy:'priority'" style="display: inline-block; width:95%; margin-bottom: .5em;">
-				<div style="width: 100%;">
-					<div class="movement-name">
-					{{ movement.movement.name }} | {{movement.sets}}  x {{movement.reps}} <div ng-show="movement.timeLeft" style="text-transform: none">rest for {{movement.timeLeft}} more seconds</div>
-					</div>
-					
-					<div style="display:inline-block;text-align:left;">
-						<!--<input type="number" placeholder="weight" ng-model="weight" />-->
-						<div class="set-bubble-container">
-							<div ng-click="completeSet(movement, $index, weight);" ng-class="{'set-complete': movement.completed[$index] !== undefined}" class="set-bubble" ng-repeat="i in getNumber(movement.sets) track by $index">
-								<div class="reps-number" ng-show="movement.completed[$index] !== undefined">{{movement.completed[$index].reps}}</div>
-							</div>
-						</div>
-					</div>
-					
-					<div class="movement-muscle-container" ng-init="showMuscle = false" style="float: right; display: inline-block;">
-						<a style="color: #444652;" target="_blank" href="{{movement.movement.video}}">
-							<img class="movement-video" src="../assets/img/video.svg">
-						</a>
-						<img ng-click="showMuscle= !showMuscle" class="movement-video" src="../assets/img/muscle.svg">
-					</div>
-					
-					<ul ng-show="showMuscle && movement.movement.bodyParts.length!=0" class="movement-muscle">
-							<div class="movement-arrow"></div>
-							<li ng-repeat="muscle in movement.movement.bodyParts track by $index">
-								{{muscle}}
-							</li>
-						</ul>
-				</div>
-			</li>
-		</ul>
-	</div>
+	
 </div>
 <div ng-show="selectedRoutine" ng-click="selectedRoutine=undefined" class="sticky" ng-class="{'down':$root.menu}">
 	<div style="background-color: #72747D;" class="start-container">

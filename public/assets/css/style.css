@@ -98,7 +98,7 @@ body {
 }
 
 .welcome-user {
-	background-image: url('../img/default.png');
+	background-image: url('../img/logo.svg');
 	border-radius: 50%;
 	display: block;
 	background-size: contain;
@@ -106,6 +106,7 @@ body {
 	box-shadow: 0px 0px 0px 3px #499390;
 	margin: auto;
 	margin-bottom:15px;
+	margin-top: 3em;
 	height:60px;
 	width:60px;
 }
@@ -156,7 +157,6 @@ body {
 		display: none;
 	}
 	.workout-block>li {
-		width:32%;
 		height:auto;
 		display: inline-flex;
 	}
@@ -444,6 +444,7 @@ body {
 .movements {
 	list-style: none;
 	padding:0px;
+	padding-top: 5em;
 	margin:0px 0px 4em 0px;
 }
 
@@ -496,10 +497,13 @@ body {
     cursor: pointer;
     position: relative;
     text-align: center;
+    box-shadow: 4px 4px 5px rgb(36, 36, 39);
+    animation: 1s all;
 }
 
 .set-complete {
-    background: #72747D;    
+    background: #575965;
+    box-shadow: 1px 1px 1px rgb(36, 36, 39);
 }
 
 .reps-number {
@@ -509,6 +513,17 @@ body {
     left: 0;
     right: 0;
     margin-top: -17px;
+}
+
+.complete-workout-button {
+    display: inline-block;
+    margin-bottom: .5em;
+    margin: 0px 10px 0px 10px;
+    height: auto;
+    color: white;
+    background-color: #444652;
+    padding: .5em;
+    font-weight: bold;
 }
 
 .movement-name {
