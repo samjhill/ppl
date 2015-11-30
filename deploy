@@ -1,5 +1,4 @@
 cd /home/app/ppl
 git pull origin master
 npm install
-sudo forever restartall
 exit
