@@ -91,9 +91,8 @@ module.exports = function(app, passport) {
        User.findOne({ _id: req.params['id']}, function (err, user) {
             if (req.body) {
                 if (user.data === undefined) {
-                    user.data = [];
-                    completedRoutines = [];
-                    user.data.push(completedRoutines);
+                    user.data = {};
+                    user.data.completedRoutines = [];
                 }
                 user.data.completedRoutines.push(req.body);
                 user.save(function(err) {
