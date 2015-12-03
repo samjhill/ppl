@@ -1,4 +1,5 @@
-cd /home/app/ppl
+cd /var/lib/jenkins/ppl
 git pull origin master
 npm install
+forever restartall
 exit
