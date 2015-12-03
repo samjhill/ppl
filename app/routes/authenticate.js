@@ -44,36 +44,21 @@ module.exports = function(app, passport) {
 		});
 
 	// facebook -------------------------------
-	app.get ('/auth/facebook', function authenticateFacebook (req, res, next) {
-	   session.returnTo = '/#' + req.query.returnTo; 
-	   next();
-	},
-	passport.authenticate ('facebook'))
-	.get ('/auth/facebook/callback', function (req, res, next) {
-	  var authenticator = passport.authenticate ('facebook', {
-	    successRedirect: session.returnTo,
-	    failureRedirect: '/login'
-	   });
-       
-	 delete session.returnTo;
-	 authenticator (req, res, next);
-       })
-       /*
-		// send to facebook to do the authentication
-		app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
-
-		// handle the callback after facebook has authenticated the user
-		app.get('/auth/facebook/callback', function(req, res, next){
-			passport.authenticate('facebook', function(err, user, info) {
-				if (err) { return next(err); }
-				if (!user) { return res.status(404); }
-				req.logIn(user, function(err) {
-				  if (err) { return next(err); }
-				  return res.send(user);
-				});
-			})(req, res, next);
-		});
- */
+		app.get ('/auth/facebook', function authenticateFacebook (req, res, next) {
+		   session.returnTo = '/#' + req.query.returnTo; 
+		   next();
+		},
+		passport.authenticate ('facebook'))
+		.get ('/auth/facebook/callback', function (req, res, next) {
+		  var authenticator = passport.authenticate ('facebook', {
+		    successRedirect: session.returnTo,
+		    failureRedirect: '/login'
+		   });
+	       
+		 delete session.returnTo;
+		 authenticator (req, res, next);
+	       })
+		
 	// twitter --------------------------------
 
 		// send to twitter to do the authentication

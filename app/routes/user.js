@@ -2,6 +2,13 @@
 var User       = require('../models/user');
 
 module.exports = function(app, passport) {
+    
+    //get current user
+    app.get('/api/user', function(req, res, done) {
+        console.log(req.user);
+        res.send(req.user);
+    });
+    
     app.get('/api/users', isAdministrator, function(req, res, done) {
         console.log(req.user);
             process.nextTick(function() {

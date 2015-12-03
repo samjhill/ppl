@@ -58,6 +58,13 @@
 				});
 			},
 			
+			user : function() {
+				return $http({
+					url:'/api/user',
+					method: "GET"
+				});
+			},
+			
 			loginFB : function(body) {
 				return $http({
 					url:'/auth/facebook',
@@ -121,11 +128,7 @@
 
 			dataService.loginFB()
 			.then(function (payload) {
-				console.log(payload.data);
-				$rootScope.user = angular.copy(payload.data);
-				$rootScope.loggedIn = true;
-				window.localStorage.setItem("userID", payload.data._id);
-				$location.path('/');
+				console.log(payload);
 			});
 		}
 	})
@@ -169,12 +172,26 @@
 	.controller('workoutController', function ($scope, $rootScope, $cookies, $location, dataService) {
 		$rootScope.activeMenu = 'workout';
 		
-		console.log('getting info for id ' + window.localStorage.getItem("userID"));
-		dataService.userInfo(window.localStorage.getItem("userID"))
+		dataService.user()
 		.then(function(payload){
-			if (payload.data.data && payload.data.data.completedRoutines) { //if there is prior user data
+			console.log(payload);
+			if (payload.data.data && payload.data.data.completedRoutines && payload.data.data.completedRoutines.length > 0) { //if there is prior user data
 				$scope.completedRoutines = payload.data.data.completedRoutines;
 				$scope.previousRoutine = $scope.completedRoutines[$scope.completedRoutines.length -1];
+				
+				//look up the next routine in the series
+				dataService.routine($scope.previousRoutine.routineId)
+				.then(function(payload){
+					var routine = payload.data;
+					
+					for(var i = 0; i < routine.workouts.length; i++){
+						if ($scope.previousRoutine.name == routine.workouts[i].name) {
+							$scope.nextRoutine = routine.workouts[(i + 1) % routine.workouts.length]; //set next routine
+							$scope.nextRoutine.routineId = routine._id; // set parent id
+							break;
+						}
+					}
+				});
 			}
 			else { //new user
 				$scope.completedRoutines = [];
@@ -182,19 +199,7 @@
 			
 			
 			
-			//look up the next routine in the series
-			dataService.routine($scope.previousRoutine.routineId)
-			.then(function(payload){
-				var routine = payload.data;
-				
-				for(var i = 0; i < routine.workouts.length; i++){
-					if ($scope.previousRoutine.name == routine.workouts[i].name) {
-						$scope.nextRoutine = routine.workouts[(i + 1) % routine.workouts.length]; //set next routine
-						$scope.nextRoutine.routineId = routine._id; // set parent id
-						break;
-					}
-				}
-			});
+			
 		});
 		
 		/*
