@@ -397,7 +397,7 @@ body {
 .overlay-fade {
 	height: 100%;
     width: 100%;
-    position: fixed;
+    position: absolute;
     z-index: 101;
 	background: -moz-linear-gradient(top, rgba(34,36,36,1) 0%, rgba(34,36,36,0.97) 3%, rgba(34,36,36,0.5) 50%, rgba(34,36,36,0.5) 99%); /* FF3.6-15 */
 	background: -webkit-linear-gradient(top, rgba(34,36,36,1) 0%,rgba(34,36,36,0.97) 3%,rgba(34,36,36,0.5) 50%,rgba(34,36,36,0.5) 99%); /* Chrome10-25,Safari5.1-6 */
