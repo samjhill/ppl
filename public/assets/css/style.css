@@ -122,7 +122,11 @@ body {
 }
 
 @media (max-width: 960px) {
-	.menu-container, .body-container, .start-container {
+	.menu-container {
+	    background: #2E2F3A;
+	    opacity: 0.8;
+	}
+	.body-container, .start-container {
 		width:100%;
 	}
 	.workout-block>li {
@@ -147,7 +151,10 @@ body {
 
 }
 @media (min-width: 960px) {
-	.menu-container, .body-container, .start-container {
+    .menu-container {
+	
+    }
+	.body-container, .start-container {
 		width:960px;
 		display: block;
 		margin:auto;
@@ -315,7 +322,6 @@ body {
 }
 
 .workout-container {
-	margin-bottom:5px;
 	background-color: #464752;
 	width:auto;
 	padding:20px;
@@ -345,7 +351,7 @@ body {
 
 .workout-block {
 	width:auto;
-	background-color: #464752;
+	background-color: #575965;
 	color:white;
 	list-style: none;
 	margin:0px;
@@ -355,7 +361,7 @@ body {
 
 .nextup-block {
     width: auto;
-    background-color: #464752;
+    background-color: #575965;
     color: white;
     list-style: none;
     margin: 0px;
