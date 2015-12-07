@@ -290,7 +290,7 @@ body {
 }
 
 .workout-block-reps {
-	display: inline-block;
+	display: inline;
     width: 20px;
     text-align: center;
 }
@@ -331,6 +331,7 @@ body {
 .workout-block-name {
 	font-size: 1.25em;
 	padding-bottom:5px;
+	display: inline;
 }
 
 .workout-header-name {
@@ -349,7 +350,18 @@ body {
 	margin-bottom:5px;
 }
 
-
+.nextup-block {
+    width: auto;
+    background-color: #464752;
+    color: white;
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    margin-bottom: 5px;
+    columns: 2;
+    -webkit-columns: 2;
+    -moz-columns: 2;
+}
 
 .workout-block-container {
 	padding:20px;
