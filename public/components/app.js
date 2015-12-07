@@ -103,8 +103,23 @@
 			}
 		};
 	})
+	.factory('authInterceptorService', ['$q','$location', function ($q, $location){
+		var responseError = function (rejection) {
+		    if (rejection.status === 403) {
+			$location.path('login');
+		    }
+		    return $q.reject(rejection);
+		};
+	    
+		return {
+		    responseError: responseError
+		};
+	}])
+	.config(['$httpProvider', function($httpProvider) {
+		$httpProvider.interceptors.push('authInterceptorService');
+	}])
 	.controller('loginController', function($scope, dataService, $cookies, $location, $rootScope, $sce) {
-		$rootScope.loggedIn = false;
+		//$rootScope.loggedIn = false;
 		//if($cookies.get('connect.sid')) {
 		//	$rootScope.loggedIn = true;
 		//	$location.path('/');
