@@ -217,6 +217,10 @@ body {
 	background-color: #00aced;
 }
 
+.google-btn {
+	background-color: #D50F25;
+}
+
 .input:focus {
 	background: rgba(255, 255, 255, .35);
 	outline:none;
