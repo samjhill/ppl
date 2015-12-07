@@ -6,7 +6,13 @@ module.exports = function(app, passport) {
     //get current user
     app.get('/api/user', function(req, res, done) {
         console.log(req.user);
-        res.send(req.user);
+        if (!req.user) {
+            res.status(403);
+            res.send();
+        }
+        else {
+            res.send(req.user);
+        }
     });
     
     app.get('/api/users', isAdministrator, function(req, res, done) {
@@ -96,8 +102,9 @@ module.exports = function(app, passport) {
     app.post('/api/user/id/:id/completedRoutine', isLoggedIn, function(req, res, done) {
       process.nextTick(function() {
        User.findOne({ _id: req.params['id']}, function (err, user) {
+        if (user) {
             if (req.body) {
-                if (user.data === undefined) {
+                if (!user.data) {
                     user.data = {};
                     user.data.completedRoutines = [];
                 }
@@ -112,6 +119,11 @@ module.exports = function(app, passport) {
                 res.send('please remember to send the routine in the body!');
             }
             
+        }
+        else {
+            res.status(404);
+            res.send('user ' + req.params['id'] + ' not found');
+        }
         });
        })
     });

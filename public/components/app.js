@@ -107,6 +107,7 @@
 		var responseError = function (rejection) {
 		    if (rejection.status === 403) {
 			$location.path('login');
+			$rootScope.loggedIn = false;
 		    }
 		    return $q.reject(rejection);
 		};
@@ -119,12 +120,8 @@
 		$httpProvider.interceptors.push('authInterceptorService');
 	}])
 	.controller('loginController', function($scope, dataService, $cookies, $location, $rootScope, $sce) {
-		//$rootScope.loggedIn = false;
-		//if($cookies.get('connect.sid')) {
-		//	$rootScope.loggedIn = true;
-		//	$location.path('/');
-		//}
-
+		$rootScope.loggedIn = false;
+		
 		$scope.submit = function() {
 			var body = 
 			{
@@ -137,13 +134,6 @@
 				$rootScope.loggedIn = true;
 				window.localStorage.setItem("userID", payload.data._id);
 				$location.path('/');
-			});
-		}
-		$scope.submitFB = function() {
-
-			dataService.loginFB()
-			.then(function (payload) {
-				console.log(payload);
 			});
 		}
 	})
@@ -190,6 +180,9 @@
 		dataService.user()
 		.then(function(payload){
 			console.log(payload);
+			$rootScope.user = angular.copy(payload.data);
+			window.localStorage.setItem("userID", payload.data._id);
+			
 			if (payload.data.data && payload.data.data.completedRoutines && payload.data.data.completedRoutines.length > 0) { //if there is prior user data
 				$scope.completedRoutines = payload.data.data.completedRoutines;
 				$scope.previousRoutine = $scope.completedRoutines[$scope.completedRoutines.length -1];
@@ -275,7 +268,7 @@
 				movement.completed[setNumber] = {setNumber: setNumber, weight: weight, reps: movement.reps};
 				$scope.startTimer(movement);
 			}
-			console.log(movement.completed);
+			//console.log(movement.completed);
 		}
 		
 		/*
