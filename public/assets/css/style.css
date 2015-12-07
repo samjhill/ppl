@@ -89,7 +89,6 @@ body {
 }
 .menu {
 	width:100%;
-	background:#363845;
 	height:60px;
 	z-index: 99;
 	position: fixed;
