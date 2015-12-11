@@ -106,6 +106,9 @@ module.exports = function(app, passport) {
             if (req.body) {
                 if (!user.data) {
                     user.data = {};
+                }
+                if (!user.data.completedRoutines) {
+                    console.log('in here');
                     user.data.completedRoutines = [];
                 }
                 user.data.completedRoutines.push(req.body);
@@ -114,6 +117,7 @@ module.exports = function(app, passport) {
                         console.log(err);
                         res.status(500);
                         res.send();
+                        return;
                     }
 		    res.status(200);
                     res.send('successfully added the routine to the user');
