@@ -110,6 +110,11 @@ module.exports = function(app, passport) {
                 }
                 user.data.completedRoutines.push(req.body);
                 user.save(function(err) {
+                    if (err) {
+                        console.log(err);
+                        res.status(500);
+                        res.send();
+                    }
 		    res.status(200);
                     res.send('successfully added the routine to the user');
 		});
