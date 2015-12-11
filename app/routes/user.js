@@ -108,7 +108,6 @@ module.exports = function(app, passport) {
                     user.data = {};
                 }
                 if (!user.data.completedRoutines) {
-                    console.log('in here');
                     user.data.completedRoutines = [];
                 }
                 user.data.completedRoutines.push(req.body);

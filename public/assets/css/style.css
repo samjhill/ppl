@@ -130,13 +130,10 @@ body {
 		width:100%;
 	}
 	.workout-block>li {
-		width:49%;
 		display: inline-flex;
 		height:auto;
 	}
 	.sticky {
-	    position: fixed;
-	    bottom: 0px;
 	    z-index: 100;
 	    width:100%;
 	    transition: bottom 0.25s ease-in-out;
@@ -300,7 +297,7 @@ body {
 }
 
 .workout-block-reps {
-	display: inline;
+    display: table-row-group;
     width: 20px;
     text-align: center;
 }
@@ -313,7 +310,7 @@ body {
 
 .welcome-container {
 	color:white;
-	width:380px;
+	width:auto;
 	display: block;
 	margin:auto;
 	text-align: center;
@@ -329,7 +326,6 @@ body {
 }
 
 .workout-block-routine {
-	padding:10px 0px;
 }
 
 .workout-header-date {
@@ -339,7 +335,6 @@ body {
 
 .workout-block-name {
 	font-size: 1.25em;
-	padding-bottom:5px;
 	display: inline;
 }
 
@@ -374,7 +369,6 @@ body {
 
 .workout-block-container {
 	padding:20px;
-	width:100%;
 }
 
 .side-menu {
