@@ -130,6 +130,7 @@ body {
 		width:100%;
 	}
 	.workout-block>li {
+		width: 85%;
 		display: inline-flex;
 		height:auto;
 	}
@@ -287,8 +288,6 @@ body {
     background-color: #2a2c38;
     border-radius: 50px;
     width: calc(100% - 60px);
-    display: inline-block;
-    margin-left: -25px;
     position: relative;
     padding-top:3px;
     font-size: .75em;
@@ -326,6 +325,7 @@ body {
 }
 
 .workout-block-routine {
+    display: inline-flex;
 }
 
 .workout-header-date {
@@ -335,6 +335,7 @@ body {
 
 .workout-block-name {
 	font-size: 1.25em;
+	margin-right: 10px;
 	display: inline;
 }
 
@@ -518,6 +519,7 @@ body {
 
 .set-complete {
     background: #575965;
+    transform: scale(.9,.9);
     box-shadow: 1px 1px 1px rgb(36, 36, 39);
 }
 

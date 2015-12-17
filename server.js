@@ -30,7 +30,7 @@ app.use(bodyParser()); // get information from html forms
 
 
 // required for passport
-app.use(session({ secret: secrets.sessionSecret,  cookie: { httpOnly: false, maxAge: 7200000 } })); // session secret
+app.use(session({ secret: secrets.sessionSecret,  cookie: { httpOnly: false, maxAge: 72000000 } })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session

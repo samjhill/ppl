@@ -34,15 +34,15 @@
 					{{movement.movement.name}}
 				</div>
 				<div ng-show="!movement.completed">skipped</div>
-				<div class="workout-block-routine" ng-repeat="set in movement.completed track by $index">
-					<div class="workout-block-set">
-						{{ $index }}
-					</div>
-					<div class="workout-block-progress">
-						{{ set.weight }}
-					</div>
-					<div class="workout-block-reps">
-						{{ set.reps }}
+				
+				<div style="display: block; float:right">
+					<div class="workout-block-routine" ng-repeat="set in movement.completed track by $index">
+						<div class="workout-block-progress">
+							{{ set.weight }}
+						</div>
+						<div class="workout-block-reps">
+							{{ set.reps }}
+						</div>
 					</div>
 				</div>
 			</li>
