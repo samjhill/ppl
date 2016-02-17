@@ -290,9 +290,8 @@
 						return;
 					}
 
-					var timeNow = Date.now();
-					var elapsed = timeNow - startTime;
-					movement.timeLeft -= elapsed;
+					var elapsed = Math.abs(new Date() - startTime);
+					movement.timeLeft -= movement.restTime - elapsed;
 					
 					$scope.$apply();
 				}
