@@ -280,7 +280,7 @@
 			}
 			else {
 				movement.timeLeft = movement.restTime;
-				var startTime = Date.now();
+				var startTime = new Date();
 				var i = setInterval(timer, 1000);
 			}
 			
