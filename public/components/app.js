@@ -280,7 +280,7 @@
 			}
 			else {
 				movement.timeLeft = movement.restTime;
-				var startTime = new Date();
+				var startTime = Date.now();
 				var i = setInterval(timer, 1000);
 			}
 			
@@ -290,7 +290,7 @@
 						return;
 					}
 
-					var elapsed = Math.abs(new Date() - startTime);
+					var elapsed = Math.abs(Date.now() - startTime);
 					movement.timeLeft -= movement.restTime - elapsed;
 					
 					$scope.$apply();
