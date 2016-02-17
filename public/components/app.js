@@ -291,7 +291,7 @@
 					}
 
 					var elapsed = Math.abs(Date.now() - startTime);
-					movement.timeLeft = movement.restTime - (elapsed/1000);
+					movement.timeLeft = movement.restTime - Math.round(elapsed/1000);
 					
 					$scope.$apply();
 				}
