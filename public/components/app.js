@@ -277,24 +277,30 @@
 		$scope.startTimer = function(movement){
 			if (movement.timeLeft) { //timer has already been started; we just want to reset it
 				movement.timeLeft = movement.restTime;
+				movement.startTime = Date.now(); //reset the start time
+				console.log('resetting the timer');
+				console.log(movement.startTime)
 			}
 			else {
 				movement.timeLeft = movement.restTime;
-				var startTime = Date.now();
+				movement.startTime = Date.now();
+				console.log(movement.startTime);
 				var i = setInterval(timer, 1000);
-			}
-			
-			function timer() {
+
+				function timer() {
 					if ( movement.timeLeft < 1) {
 						clearInterval(i);
 						return;
 					}
 
-					var elapsed = Math.abs(Date.now() - startTime);
+					var elapsed = Math.abs(Date.now() - movement.startTime);
 					movement.timeLeft = movement.restTime - Math.round(elapsed/1000);
 					
 					$scope.$apply();
 				}
+			}
+			
+			
 		}
 		/* end timer functions */
 		
