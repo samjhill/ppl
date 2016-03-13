@@ -205,7 +205,7 @@
 				}
 			}
 
-			$scope.labels = [Object.keys(workoutsByMonth)];
+			$scope.labels = Object.keys(workoutsByMonth);
 			$scope.series = ['Workouts Completed, by Month'];
 			var vals = Object.keys(workoutsByMonth).map(function (key) {
 			    return workoutsByMonth[key];
