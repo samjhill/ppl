@@ -87,6 +87,11 @@ body {
 	background:#363845;
 	overflow-x:hidden;
 }
+
+h1 {
+    color: white;
+}
+
 .menu {
 	width:100%;
 	height:60px;
@@ -119,6 +124,12 @@ body {
 
 .body-container {
 	padding-top:60px;
+}
+
+.chart-container {
+    background: white;
+    padding: 1em;
+    border: 4px solid #25262D;
 }
 
 @media (max-width: 960px) {

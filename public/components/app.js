@@ -2,7 +2,7 @@
 (function () {
 	'use strict'; 
 
-	angular.module('ppl', ['ngRoute', 'ngCookies'])
+	angular.module('ppl', ['ngRoute', 'ngCookies', 'chart.js'])
 	.config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
 		$routeProvider
 		.when('/', {
@@ -24,6 +24,10 @@
 		.when('/routines', {
 		    templateUrl: '../routines.html',
 		    controller: 'routineController'
+		})
+		.when('/stats', {
+		    templateUrl: '../stats.html',
+		    controller: 'statsController'
 		})
 		.when('/login', {
 		    templateUrl: '../login.html',
@@ -172,6 +176,49 @@
 		})
 
 		
+		
+	})
+	.controller('statsController', function ($scope, $rootScope, dataService, $location, $cookies) {
+		$scope.loading = true;
+
+		$rootScope.activeMenu = 'stats';
+
+		dataService.user()
+		.then(function(payload){
+			$scope.loading = false;
+
+			var monthNames = ["January", "February", "March", "April", "May", "June",
+			  "July", "August", "September", "October", "November", "December"
+			];
+
+			var workoutsByMonth = {};
+
+			for(var i = 0; i < payload.data.data.completedRoutines.length; i++){
+				var d = new Date(payload.data.data.completedRoutines[i].dateCompleted);
+				var n = d.getMonth();
+				if(workoutsByMonth[monthNames[n]]){
+					workoutsByMonth[monthNames[n]] += 1;
+				}
+				else {
+					workoutsByMonth[monthNames[n]] = 0; //initialize
+					workoutsByMonth[monthNames[n]] += 1;
+				}
+			}
+
+			$scope.labels = [Object.keys(workoutsByMonth)];
+			$scope.series = ['Workouts Completed, by Month'];
+			var vals = Object.keys(workoutsByMonth).map(function (key) {
+			    return workoutsByMonth[key];
+			});
+			console.log($scope.labels);
+			console.log(vals);
+			$scope.data = [vals]; 
+		});
+
+		
+		// $scope.onClick = function (points, evt) {
+		//     console.log(points, evt);
+		// };
 		
 	})
 	.controller('workoutController', function ($scope, $rootScope, $cookies, $location, dataService) {

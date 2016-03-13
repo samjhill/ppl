@@ -1,0 +1,13 @@
+<div class="body-container">
+
+	<span style="margin-top:30px;" ng-show="loading" class="tcon-loader--spinner360" aria-label="loading">
+	  <span class="tcon-visuallyhidden">loading</span>
+	</span>
+	
+	<h1>Stats</h1>
+
+	<canvas id="line" class="chart chart-line" chart-data="data"
+	  chart-labels="labels" chart-legend="true" chart-series="series"
+	  chart-click="onClick" >
+	</canvas> 
+</div>
