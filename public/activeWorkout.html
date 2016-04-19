@@ -1,13 +1,13 @@
 <div>
         <ul class="movements">
                 <li ng-repeat="movement in activeWorkout.movements | orderBy:'priority'" style="display: inline-block; width:95%; margin-bottom: .5em;">
-                        <div style="width: 100%;">
+                        <div style="width: 100%;" ng-if="(movement.completed.length || 0) < movement.sets || movement.editing">
                                 <div class="movement-name">
                                 {{ movement.movement.name }} 
 
                                     <input style="width:25px" type="number" ng-model="movement.sets" class="btn" ng-value="{{movement.sets}}"/>  sets of <input style="width:25px" type="number" ng-model="movement.reps" ng-value="{{movement.reps}}" class="btn"/>reps<div ng-show="movement.timeLeft" style="text-transform: none">rest for {{movement.timeLeft}} more seconds</div>
                                 </div>
-                                
+
                                 <div style="display:inline-block;text-align:left;">
                                         <!--<input type="number" placeholder="weight" ng-model="weight" />-->
                                         <div class="set-bubble-container">
@@ -18,19 +18,27 @@
                                 </div>
                                 
                                 <div class="movement-muscle-container" ng-init="showMuscle = false" style="float: right; display: inline-block;">
-                                        <a style="color: #444652;" target="_blank" href="{{movement.movement.video}}">
+                                        <div ng-show="movement.editing">
+                                            <i class="fa fa-check" style="font-size: 3em;margin-right: 20px;" ng-click="movement.editing = false;"></i>
+                                        </div>
+                                        <a style="color: #444652;" target="_blank" ng-show="!movement.editing" href="{{movement.movement.video}}">
                                                 <img class="movement-video" src="../assets/img/video.svg">
                                         </a>
-                                        <img ng-click="showMuscle= !showMuscle" class="movement-video" src="../assets/img/muscle.svg">
+                                        <img ng-click="showMuscle = !showMuscle" ng-show="!movement.editing" class="movement-video" src="../assets/img/muscle.svg">
                                 </div>
-                                
-                                <ul ng-show="showMuscle && movement.movement.bodyParts.length!=0" class="movement-muscle">
+
+                                <ul ng-show="showMuscle && movement.movement.bodyParts.length != 0" class="movement-muscle">
                                                 <div class="movement-arrow"></div>
                                                 <li ng-repeat="muscle in movement.movement.bodyParts track by $index">
                                                         {{muscle}}
                                                 </li>
                                         </ul>
                         </div>
+
+                        <div style="width: 100%; padding: .5em;" ng-if="movement.completed.length == movement.sets" ng-hide="movement.editing">
+                            <p style="text-transform: capitalize; display: inline; font-weight: bold">{{ movement.movement.name }}</p>
+                            {{ movement.sets }} sets of {{ movement.reps }}
+                            <i class="fa fa-edit" style="float: right;margin-right: 20px;font-size: 2em;" ng-click="movement.editing = true"></i>
                 </li>
                 
                 <div class="complete-workout-button" ng-click="saveWorkout(activeWorkout)">Finish Workout</div>

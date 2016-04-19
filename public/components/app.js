@@ -291,7 +291,7 @@
 		$scope.getNumber = function(num) {
 			return new Array(num);   
 		}
-		
+
 		/*
 		 * marks the set as complete
 		 */
@@ -332,7 +332,7 @@
 				movement.timeLeft = movement.restTime;
 				movement.startTime = Date.now();
 				console.log(movement.startTime);
-				var i = setInterval(timer, 1000);
+				
 
 				var timer = function() {
 					if ( movement.timeLeft < 1) {
@@ -345,6 +345,8 @@
 					
 					$scope.$apply();
 				}
+
+				var i = setInterval(timer, 1000);
 			}
 		}
 		/* end timer functions */
