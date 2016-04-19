@@ -416,6 +416,10 @@ h1 {
 	border-left:4px solid #54c7bb;
 }
 
+.side-menu>li:hover{
+    cursor: pointer;
+}
+
 .overlay {
 	height: 100%;
     width: 100%;
