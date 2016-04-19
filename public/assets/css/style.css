@@ -564,10 +564,8 @@ h1 {
 
 .movement-name {
 	text-align: left;
-	text-transform: capitalize;
 	padding: 10px;
-	height: 40px;
-	margin-top:20px;
+	height: 50px;
 }
 
 .movement-muscle {
