@@ -303,7 +303,7 @@
 			}
 			
 			if (movement.completed[setNumber] !== undefined) {  //user wants to decrease the amount of reps
-				if (movement.completed[setNumber].reps === 0) { //if user has decreased the count to 0, reset it
+				if (movement.completed[setNumber].reps < 1) { //if user has decreased the count to 0, reset it
 					delete movement.completed[setNumber];
 					movement.timeLeft = 0;
 				}
@@ -334,7 +334,7 @@
 				console.log(movement.startTime);
 				var i = setInterval(timer, 1000);
 
-				function timer() {
+				var timer = function() {
 					if ( movement.timeLeft < 1) {
 						clearInterval(i);
 						return;
