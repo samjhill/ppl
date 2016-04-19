@@ -2,19 +2,16 @@
 	<ul ng-show="$root.menu" class="side-menu animated slideInLeft">
 		<img class="logo" src="assets/img/logo.svg"></img>
 		<li ng-class="{'active': $root.activeMenu == 'workout'}" ng-click="goTo('')">
-			WORKOUT
+			<i class="fa fa-heartbeat" aria-hidden="true"></i> WORKOUT
 		</li> 
-		<li ng-class="{'active': $root.activeMenu == 'routines'}" ng-click="goTo('routines')">
+		<!-- <li ng-class="{'active': $root.activeMenu == 'routines'}" ng-click="goTo('routines')">
 			ROUTINES
-		</li>
+		</li> -->
 		<li ng-class="{'active': $root.activeMenu == 'stats'}" ng-click="goTo('stats')">
-			STATS
-		</li>
-		<li>
-			VIDEOS
+			<i class="fa fa-line-chart" aria-hidden="true"></i> STATS
 		</li>
 		<li ng-click="logout()">
-			LOGOUT
+			<i class="fa fa-sign-out" aria-hidden="true"></i> LOGOUT
 		</li>
 	</ul>
 	<div ng-show="$root.menu" ng-click="$root.menu=false;" class="overlay animated fadeIn">

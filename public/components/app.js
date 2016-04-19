@@ -346,8 +346,6 @@
 					$scope.$apply();
 				}
 			}
-			
-			
 		}
 		/* end timer functions */
 		
