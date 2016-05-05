@@ -296,6 +296,11 @@ h1 {
 	color:white;
 	text-align: center;
 	font-size: 1.25em;
+    -webkit-animation: fadeIn 1s; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadeIn 1s; /* Firefox < 16 */
+        -ms-animation: fadeIn 1s; /* Internet Explorer */
+         -o-animation: fadeIn 1s; /* Opera < 12.1 */
+            animation: fadeIn 1s;
 }
 
 
@@ -337,6 +342,12 @@ h1 {
 	width:auto;
 	padding:20px;
 	color:white;
+    z-index: 5;
+    -webkit-animation: fadeIn .3s; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadeIn .3s; /* Firefox < 16 */
+        -ms-animation: fadeIn .3s; /* Internet Explorer */
+         -o-animation: fadeIn .3s; /* Opera < 12.1 */
+            animation: fadeIn .3s;
 }
 
 .workout-block-routine {
@@ -352,6 +363,7 @@ h1 {
 	font-size: 1.25em;
 	margin-right: 10px;
 	display: inline;
+    font-weight: bold;
 }
 
 .workout-header-name {
@@ -376,7 +388,7 @@ h1 {
     color: white;
     list-style: none;
     margin: 0px;
-    padding: 0px;
+    padding: 0px 0px 1em 0px;
     margin-bottom: 5px;
     columns: 2;
     -webkit-columns: 2;
@@ -503,10 +515,47 @@ h1 {
 }
 
 .movements>li {
-        margin: 0px 10px 0px 10px;
+    margin: 0px 10px 0px 10px;
 	height: auto;
 	color:white;
 	background-color: #444652;
+    animation-delay: .2s;
+}
+
+.movements>li:nth-of-type(1){
+    -webkit-animation-delay: .1s;
+}
+
+.movements>li:nth-of-type(2){
+    -webkit-animation-delay: .5s;
+}
+
+.movements>li:nth-of-type(3){
+    -webkit-animation-delay: 1s;
+}
+
+.movements>li:nth-of-type(4){
+    -webkit-animation-delay: 1.5s;
+}
+
+.movements>li:nth-of-type(5){
+    -webkit-animation-delay: 2s;
+}
+
+.movements>li:nth-of-type(6){
+    -webkit-animation-delay: 2.5s;
+}
+
+.movements>li:nth-of-type(7){
+    -webkit-animation-delay: 3s;
+}
+
+.movements>li:nth-of-type(8){
+    -webkit-animation-delay: 3.5s;
+}
+
+.movements>li:nth-of-type(9){
+    -webkit-animation-delay: 4s;
 }
 
 .movements>li:nth-child(even)>div>.movement-muscle-container>ul>.movement-arrow {

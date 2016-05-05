@@ -1,9 +1,9 @@
 <div>
         <ul class="movements">
-                <li ng-repeat="movement in activeWorkout.movements | orderBy:'priority'" style="display: inline-block; width:95%; margin-bottom: .5em;">
+                <li class="animated fadeIn slideInDown" ng-repeat="movement in activeWorkout.movements | orderBy:'priority'" style="display: inline-block; width:95%; margin-bottom: .5em;">
                         <div style="width: 100%;" ng-if="(movement.completed.length || 0) < movement.sets || movement.editing">
                                 <div class="movement-name">
-                                    <div ng-show="movement.timeLeft" style="float: right;text-transform: none">rest for {{movement.timeLeft}} more seconds</div>
+                                    <div ng-show="movement.timeLeft" style="float: right;text-transform: none"> {{movement.timeLeft}} more seconds</div>
                                     <span style="font-weight: bold;text-transform: capitalize;">{{ movement.movement.name }}</span>
                                     <div>
                                         <input style="width:25px" type="number" ng-model="movement.sets" class="btn" ng-value="{{movement.sets}}"/>  sets of <input style="width:25px" type="number" ng-model="movement.reps" ng-value="{{movement.reps}}" class="btn"/> reps

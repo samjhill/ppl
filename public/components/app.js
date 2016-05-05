@@ -186,16 +186,48 @@
 		dataService.user()
 		.then(function(payload){
 			$scope.loading = false;
+			
+			$scope.chartData = [];
+			$scope.labels = [];
+			$scope.series = [];
 
+			var buildChart = function( labels, series, data ){
+				$scope.labels.push( labels );
+				$scope.series.push( series );
+				$scope.chartData.push( data );
+			};
+
+			
 			var monthNames = ["January", "February", "March", "April", "May", "June",
 			  "July", "August", "September", "October", "November", "December"
 			];
 
 			var workoutsByMonth = {};
+			var movements = {};
+			var dates = [];
+			var weightDates = [];
 
 			for(var i = 0; i < payload.data.data.completedRoutines.length; i++){
 				var d = new Date(payload.data.data.completedRoutines[i].dateCompleted);
+				dates.push(d);
+
 				var n = d.getMonth();
+
+				//collect all movements completed together, sorted by name, for later use
+				for(var j = 0; j < payload.data.data.completedRoutines[i].movements.length; j++){
+					if(!movements[payload.data.data.completedRoutines[i].movements[j].movement.name]){ //add the movement name to the collection
+						movements[payload.data.data.completedRoutines[i].movements[j].movement.name] = [];
+					}
+					if(payload.data.data.completedRoutines[i].movements[j].weight){ //add the date the movement was performed, if weight was recorded
+						var date = (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear();
+						if( weightDates.indexOf(date) == -1 ){
+							weightDates.push(date);
+						}
+					}
+					movements[payload.data.data.completedRoutines[i].movements[j].movement.name].push(payload.data.data.completedRoutines[i].movements[j]);
+				}
+
+				//workouts per month
 				if(workoutsByMonth[monthNames[n]]){
 					workoutsByMonth[monthNames[n]] += 1;
 				}
@@ -205,21 +237,30 @@
 				}
 			}
 
-			$scope.labels = Object.keys(workoutsByMonth);
-			$scope.series = ['Workouts Completed, by Month'];
 			var vals = Object.keys(workoutsByMonth).map(function (key) {
 			    return workoutsByMonth[key];
 			});
-			console.log($scope.labels);
-			console.log(vals);
-			$scope.data = [vals]; 
-		});
 
-		
-		// $scope.onClick = function (points, evt) {
-		//     console.log(points, evt);
-		// };
-		
+			buildChart(Object.keys(workoutsByMonth), ['Workouts Completed'], [vals]);
+			
+			//weight lifted over time
+			var weights = Object.keys(movements).map(function (key) {
+
+				var weight = [];
+				for(var i = 0; i < movements[key].length; i++){
+					if(movements[key][i]['weight']){
+						weight.push( movements[key][i]['weight'] );
+					}
+					else {
+						weight.push( 0 );
+					}
+				}
+				return weight;
+			});
+			console.log(weightDates);
+			buildChart(weightDates, Object.keys(movements), weights);
+			
+		});
 	})
 	.controller('workoutController', function ($scope, $rootScope, $cookies, $location, dataService) {
 		$rootScope.activeMenu = 'workout';
