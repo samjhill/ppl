@@ -1,7 +1,6 @@
 
 (function () {
 	'use strict'; 
-
 	angular.module('ppl', ['ngRoute', 'ngCookies', 'chart.js'])
 	.config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
 		$routeProvider
