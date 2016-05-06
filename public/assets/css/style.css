@@ -140,6 +140,22 @@ h1 {
     width: 100% !important;
 }
 
+.question-container {
+    width: 25%;
+    margin: 0 auto;
+}
+
+.question-title {
+    background: #464752;
+    padding: 1em;
+}
+
+.answer {
+    text-align: left;
+    background: #575965;
+    padding: .5em;
+}
+
 @media (max-width: 960px) {
 	.menu-container {
 	    background: #2E2F3A;
