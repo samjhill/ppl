@@ -316,6 +316,7 @@ h1 {
 	color:white;
 	text-align: center;
 	font-size: 1.25em;
+    cursor: pointer;
     -webkit-animation: fadeIn 1s; /* Safari, Chrome and Opera > 12.1 */
        -moz-animation: fadeIn 1s; /* Firefox < 16 */
         -ms-animation: fadeIn 1s; /* Internet Explorer */
