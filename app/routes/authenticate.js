@@ -83,7 +83,7 @@ module.exports = function(app, passport) {
 		   session.returnTo = '/#' + req.query.returnTo; 
 		   next();
 		},
-		passport.authenticate ('google'))
+		passport.authenticate ('google', {scope: ['profile', 'email']}))
 		.get ('/auth/google/callback', function (req, res, next) {
 		  var authenticator = passport.authenticate ('google', {
 		    successRedirect: session.returnTo,
