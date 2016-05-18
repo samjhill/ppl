@@ -323,6 +323,7 @@
 		$scope.startWorkout = function(){
 			$location.path('/activeWorkout');
 			$rootScope.activeWorkout = $scope.nextRoutine;
+			$rootScope.completedRoutines = $scope.completedRoutines;
 		}
 	})
 	.controller('activeWorkoutController', function ($scope, $rootScope, $cookies, $location, dataService) {
@@ -330,6 +331,24 @@
 		
 		$scope.getNumber = function(num) {
 			return new Array(num);   
+		}
+
+		//get weight values for each movement
+		//iterating backwards so we get the most recent and save time
+		for(var i = $rootScope.completedRoutines.length - 1; i >= 0; i--){
+			if($rootScope.completedRoutines[i]['name'] == $rootScope.activeWorkout.name){
+				console.log($rootScope.completedRoutines[i]);
+				for(var j = 0; j < $rootScope.activeWorkout.movements.length; j++){
+					if($rootScope.completedRoutines[i].movements[j].weight){
+						$rootScope.activeWorkout.movements[j].weight = $rootScope.completedRoutines[i].movements[j].weight;
+					}
+					else{
+						$rootScope.activeWorkout.movements[j].weight = 0;
+					}
+				}
+				
+				return;
+			}
 		}
 
 		/*
