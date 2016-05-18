@@ -377,6 +377,7 @@
 				var timer = function() {
 					if ( movement.timeLeft < 1) {
 						clearInterval(i);
+						delete movement.timeLeft;
 						return;
 					}
 
