@@ -47,7 +47,10 @@
 		
 		<div class="workout-container">
 			<div class="workout-header">
-				<div class="workout-header-name">
+				<div ng-if="inProgress" class="workout-header-name">
+					In progress: {{nextRoutine.name}}
+				</div>
+				<div ng-if="!inProgress" class="workout-header-name">
 					Next up: {{nextRoutine.name}}
 				</div>
 			</div>

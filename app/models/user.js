@@ -33,7 +33,8 @@ var userSchema = mongoose.Schema({
     data: {
         myRoutines: Array,
         completedRoutines: Array,
-        customRoutines: Array
+        customRoutines: Array,
+        routineInProgress: Object
     }
 });
 

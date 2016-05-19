@@ -97,6 +97,47 @@ module.exports = function(app, passport) {
     });
     
     /*
+     * replace a user's data.routineInProgress object
+     */
+    app.put('/api/user/id/:id/routineInProgress', isLoggedIn, function(req, res, done) {
+      process.nextTick(function() {
+       User.findOne({ _id: req.params['id']}, function (err, user) {
+        if (user) {
+            if (req.body) {
+                if (!user.data) {
+                    user.data = {};
+                }
+                if (!user.data.routineInProgress) {
+                    user.data.routineInProgress = {};
+                }
+                user.data.routineInProgress = req.body;
+                console.log(user.data.routineInProgress);
+                user.save(function(err) {
+                    if (err) {
+                        console.log(err);
+                        res.status(500);
+                        res.send();
+                        return;
+                    }
+            res.status(200);
+                    res.send('successfully saved routine in progress');
+        });
+            }
+            else {
+                res.status(400);
+                res.send('please remember to send the routine in the body!');
+            }
+            
+        }
+        else {
+            res.status(404);
+            res.send('user ' + req.params['id'] + ' not found');
+        }
+        });
+       })
+    });
+
+    /*
      * add a routine to a user's data.completedRoutines array of routine objects
      */
     app.post('/api/user/id/:id/completedRoutine', isLoggedIn, function(req, res, done) {

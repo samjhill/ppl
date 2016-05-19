@@ -90,6 +90,14 @@
 				});
 			},
 			
+			routineInProgress : function(userId, body) {
+				return $http({
+					url:'/api/user/id/' + userId + '/routineInProgress',
+					method: "PUT",
+					data: body
+				});
+			},
+
 			completedRoutine : function(userId, body) {
 				return $http({
 					url:'/api/user/id/' + userId + '/completedRoutine',
@@ -287,6 +295,10 @@
 						}
 					}
 				});
+
+				if(payload.data.data.routineInProgress){
+					$scope.inProgress = true;
+				}
 			}
 			else { //new user
 				$scope.completedRoutines = [];
@@ -323,32 +335,43 @@
 		$scope.startWorkout = function(){
 			$location.path('/activeWorkout');
 			$rootScope.activeWorkout = $scope.nextRoutine;
-			$rootScope.completedRoutines = $scope.completedRoutines;
 		}
 	})
 	.controller('activeWorkoutController', function ($scope, $rootScope, $cookies, $location, dataService) {
 		$rootScope.activeMenu = 'workout';
-		
-		$scope.getNumber = function(num) {
-			return new Array(num);   
-		}
 
-		//get weight values for each movement
-		//iterating backwards so we get the most recent and save time
-		for(var i = $rootScope.completedRoutines.length - 1; i >= 0; i--){
-			if($rootScope.completedRoutines[i]['name'] == $rootScope.activeWorkout.name){
-				console.log($rootScope.completedRoutines[i]);
-				for(var j = 0; j < $rootScope.activeWorkout.movements.length; j++){
-					if($rootScope.completedRoutines[i].movements[j].weight){
-						$rootScope.activeWorkout.movements[j].weight = $rootScope.completedRoutines[i].movements[j].weight;
-					}
-					else{
-						$rootScope.activeWorkout.movements[j].weight = 0;
+		//check for workout in progress
+		dataService.user()
+		.then(function(payload){
+			$rootScope.completedRoutines = payload.data.data.completedRoutines;
+			
+			if(payload.data.data.routineInProgress){
+				$rootScope.activeWorkout = payload.data.data.routineInProgress;
+				
+			}
+			else {
+				//get weight values for each movement
+				//iterating backwards so we get the most recent and save time
+				for(var i = $rootScope.completedRoutines.length - 1; i >= 0; i--){
+					if($rootScope.completedRoutines[i]['name'] == $rootScope.activeWorkout.name){
+						console.log($rootScope.completedRoutines[i]);
+						for(var j = 0; j < $rootScope.activeWorkout.movements.length; j++){
+							if($rootScope.completedRoutines[i].movements[j].weight){
+								$rootScope.activeWorkout.movements[j].weight = $rootScope.completedRoutines[i].movements[j].weight;
+							}
+							else{
+								$rootScope.activeWorkout.movements[j].weight = 0;
+							}
+						}
 					}
 				}
-				
-				return;
 			}
+		});
+
+		
+
+		$scope.getNumber = function(num) {
+			return new Array(num);   
 		}
 
 		/*
@@ -373,10 +396,18 @@
 			else {
 				movement.completed[setNumber] = {setNumber: setNumber, weight: weight, reps: movement.reps};
 				$scope.startTimer(movement);
+				$scope.updateRoutineInProgress($rootScope.activeWorkout);
 			}
 			//console.log(movement.completed);
-		}
+		};
 		
+		$scope.updateRoutineInProgress = function( workout ) {
+			dataService.routineInProgress(window.localStorage.getItem("userID"), workout)
+			.then(function (payload) {
+				console.log(payload);
+			});
+		};
+
 		/*
 		 * Timer functions
 		 */
@@ -421,6 +452,7 @@
 			dataService.completedRoutine(window.localStorage.getItem("userID"), workout)
 			.then(function (payload) {
 				console.log(payload);
+				$scope.updateRoutineInProgress({});
 				$location.path('workout');
 			});
 		};
