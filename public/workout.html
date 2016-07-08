@@ -1,7 +1,7 @@
 
 <div class="body">
 	<!-- first use -->
-	<div ng-show="completedRoutines.length > 0">
+	<div ng-show="completedRoutines.length < 1">
 		<div class="welcome-container">
 			<div class="welcome-user">
 			</div>
@@ -25,7 +25,7 @@
 	</div>
 	
 	<!-- user has completed at least one workout -->
-	<div class="body-container" ng-show="completedRoutines.length == 0">
+	<div class="body-container" ng-show="completedRoutines.length > 0">
 		<div class="welcome-container">
 			<div class="welcome-user">
 			</div>
