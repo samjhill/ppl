@@ -393,7 +393,8 @@
 				}
 			}
 			else {
-				movement.completed[setNumber] = {setNumber: setNumber, weight: weight, reps: movement.reps};
+				movement.completed[setNumber] = {setNumber: setNumber, weight: movement.weight, reps: movement.reps};
+				console.log(movement);
 				$scope.startTimer(movement);
 				$scope.updateRoutineInProgress($rootScope.activeWorkout);
 			}
