@@ -1,7 +1,7 @@
 
 <div class="body">
 	<!-- first use -->
-	<div ng-show="completedRoutines.length == 0">
+	<div ng-show="completedRoutines.length > 0">
 		<div class="welcome-container">
 			<div class="welcome-user">
 			</div>
@@ -11,13 +11,10 @@
 				<div class="question-title">What are your fitness goals?</div>
 				<div class="answer-container">
 					<div class="answer">
-						<input type="checkbox" /> weight management
+						I want to lose fat.
 					</div>
 					<div class="answer">
-						<input type="checkbox" /> gain strength
-					</div>
-					<div class="answer">
-						<input type="checkbox" /> endurance
+						I want to gain strength
 					</div>
 				</div>
 			</div>
@@ -28,7 +25,7 @@
 	</div>
 	
 	<!-- user has completed at least one workout -->
-	<div class="body-container" ng-show="completedRoutines.length > 0">
+	<div class="body-container" ng-show="completedRoutines.length == 0">
 		<div class="welcome-container">
 			<div class="welcome-user">
 			</div>

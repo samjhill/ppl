@@ -168,7 +168,6 @@
 				$rootScope.loggedIn = false;
 				$location.path('/login');
 			});
-			
 		}
 	})
 	.controller('routineController', function ($scope, $rootScope, dataService, $location, $cookies) {
@@ -398,7 +397,6 @@
 				$scope.startTimer(movement);
 				$scope.updateRoutineInProgress($rootScope.activeWorkout);
 			}
-			//console.log(movement.completed);
 		};
 		
 		$scope.updateRoutineInProgress = function( workout ) {
@@ -415,13 +413,10 @@
 			if (movement.timeLeft) { //timer has already been started; we just want to reset it
 				movement.timeLeft = movement.restTime;
 				movement.startTime = Date.now(); //reset the start time
-				console.log('resetting the timer');
-				console.log(movement.startTime)
 			}
 			else {
 				movement.timeLeft = movement.restTime;
 				movement.startTime = Date.now();
-				console.log(movement.startTime);
 				
 
 				var timer = function() {
@@ -433,7 +428,9 @@
 
 					var elapsed = Math.abs(Date.now() - movement.startTime);
 					movement.timeLeft = movement.restTime - Math.round(elapsed/1000);
-					
+					if(movement.timeLeft < 1){
+						movement.timeLeft = 0;
+					}
 					$scope.$apply();
 				}
 
@@ -451,7 +448,6 @@
 			
 			dataService.completedRoutine(window.localStorage.getItem("userID"), workout)
 			.then(function (payload) {
-				console.log(payload);
 				$scope.updateRoutineInProgress({});
 				$location.path('workout');
 			});
