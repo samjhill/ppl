@@ -31,6 +31,10 @@
 		.when('/login', {
 		    templateUrl: '../login.html',
 		    controller: 'loginController'
+		})
+		.when('/demo', {
+			templateUrl: '../routines.html',
+			controller: 'demoController'
 		});
 	}])
 	.run(['$rootScope', '$cookies', '$location', 'dataService', function ($rootScope, $cookies, $location, dataService) {
@@ -138,7 +142,8 @@
 			{
 				email: $scope.user,
 				password: $scope.pass
-			}
+			};
+
 			dataService.login(body)
 			.then(function (payload) {
 				$rootScope.user = angular.copy(payload.data);
@@ -146,17 +151,31 @@
 				window.localStorage.setItem("userID", payload.data._id);
 				$location.path('/');
 			});
-		}
+		};
+	})
+	.controller('demoController', function($http, $scope, $cookies, $rootScope, $location, dataService) {
+
+		var body = 
+			{
+				email: 'demo@ppl.com',
+				password: 'demo'
+			};
+
+			dataService.login(body)
+			.then(function (payload) {
+				$rootScope.user = angular.copy(payload.data);
+				$rootScope.loggedIn = true;
+				window.localStorage.setItem("userID", payload.data._id);
+				$location.path('/');
+			});
 	})
 	.controller('menuController', function($scope, $cookies, $rootScope, $location, dataService) {
 		$rootScope.menu = false;
 
-
-
 		$scope.goTo = function(where) {
 			$rootScope.menu = false;
 			$location.path('/' + where);
-		}
+		};
 
 		$scope.logout = function() {
 			dataService.logout()
@@ -168,7 +187,7 @@
 				$rootScope.loggedIn = false;
 				$location.path('/login');
 			});
-		}
+		};
 	})
 	.controller('routineController', function ($scope, $rootScope, dataService, $location, $cookies) {
 		$scope.loading = true;
@@ -179,10 +198,7 @@
 		.then(function (payload) {
 			$scope.loading = false;
 			$scope.routines = payload.data;
-		})
-
-		
-		
+		});
 	})
 	.controller('statsController', function ($scope, $rootScope, dataService, $location, $cookies) {
 		$scope.loading = true;
@@ -263,7 +279,6 @@
 				}
 				return weight;
 			});
-			console.log(weightDates);
 			buildChart(weightDates, Object.keys(movements), weights);
 			
 		});
@@ -273,7 +288,6 @@
 		
 		dataService.user()
 		.then(function(payload){
-			console.log(payload);
 			$rootScope.user = angular.copy(payload.data);
 			window.localStorage.setItem("userID", payload.data._id);
 			
@@ -302,10 +316,6 @@
 			else { //new user
 				$scope.completedRoutines = [];
 			}
-			
-			
-			
-			
 		});
 		
 		/*
@@ -321,12 +331,8 @@
 						$location.path('/activeWorkout');
 					}
 				}
-				
-			})
-			
-			
-			
-		}
+			});
+		};
 			
 		/*
 		 * starts the next workout in the series
@@ -334,7 +340,7 @@
 		$scope.startWorkout = function(){
 			$location.path('/activeWorkout');
 			$rootScope.activeWorkout = $scope.nextRoutine;
-		}
+		};
 	})
 	.controller('activeWorkoutController', function ($scope, $rootScope, $cookies, $location, dataService) {
 		$rootScope.activeMenu = 'workout';
@@ -371,7 +377,7 @@
 
 		$scope.getNumber = function(num) {
 			return new Array(num);   
-		}
+		};
 
 		/*
 		 * marks the set as complete
@@ -433,11 +439,11 @@
 						movement.timeLeft = 0;
 					}
 					$scope.$apply();
-				}
+				};
 
 				var i = setInterval(timer, 1000);
 			}
-		}
+		};
 		/* end timer functions */
 		
 		/*
