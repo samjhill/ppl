@@ -121,8 +121,8 @@
 	.factory('authInterceptorService', ['$q','$location', function ($q, $location){
 		var responseError = function (rejection) {
 		    if (rejection.status === 403) {
-			$location.path('login');
-			$rootScope.loggedIn = false;
+				$location.path('login');
+				$rootScope.loggedIn = false;
 		    }
 		    return $q.reject(rejection);
 		};
@@ -154,7 +154,7 @@
 		};
 	})
 	.controller('demoController', function($http, $scope, $cookies, $rootScope, $location, dataService) {
-
+		$rootScope.loggedIn = true;
 		var body = 
 			{
 				email: 'demo@ppl.com',
@@ -164,7 +164,6 @@
 			dataService.login(body)
 			.then(function (payload) {
 				$rootScope.user = angular.copy(payload.data);
-				$rootScope.loggedIn = true;
 				window.localStorage.setItem("userID", payload.data._id);
 				$location.path('/');
 			});

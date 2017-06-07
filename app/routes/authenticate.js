@@ -65,7 +65,7 @@ module.exports = function(app, passport) {
 		   session.returnTo = '/#' + req.query.returnTo; 
 		   next();
 		},
-		passport.authenticate ('facebook'))
+		passport.authenticate ('twitter'))
 		.get ('/auth/twitter/callback', function (req, res, next) {
 		  var authenticator = passport.authenticate ('twitter', {
 		    successRedirect: session.returnTo,
