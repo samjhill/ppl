@@ -154,19 +154,19 @@
 		};
 	})
 	.controller('demoController', function($http, $scope, $cookies, $rootScope, $location, dataService) {
-		$rootScope.loggedIn = true;
 		var body = 
 			{
 				email: 'demo@ppl.com',
 				password: 'demo'
 			};
 
-			dataService.login(body)
-			.then(function (payload) {
-				$rootScope.user = angular.copy(payload.data);
-				window.localStorage.setItem("userID", payload.data._id);
-				$location.path('/');
-			});
+		dataService.login(body)
+		.then(function (payload) {
+			$rootScope.user = angular.copy(payload.data);
+			$rootScope.loggedIn = true;
+			window.localStorage.setItem("userID", payload.data._id);
+			$location.path('/');
+		});
 	})
 	.controller('menuController', function($scope, $cookies, $rootScope, $location, dataService) {
 		$rootScope.menu = false;
@@ -179,8 +179,6 @@
 		$scope.logout = function() {
 			dataService.logout()
 			.then(function(payload){
-				console.log(payload);
-				console.log('logging out');
 				delete $cookies['connect.sid'];
 				$rootScope.menu = false;
 				$rootScope.loggedIn = false;
@@ -358,7 +356,6 @@
 				//iterating backwards so we get the most recent and save time
 				for(var i = $rootScope.completedRoutines.length - 1; i >= 0; i--){
 					if($rootScope.completedRoutines[i]['name'] == $rootScope.activeWorkout.name){
-						console.log($rootScope.completedRoutines[i]);
 						for(var j = 0; j < $rootScope.activeWorkout.movements.length; j++){
 							if($rootScope.completedRoutines[i].movements[j].weight){
 								$rootScope.activeWorkout.movements[j].weight = $rootScope.completedRoutines[i].movements[j].weight;
@@ -399,7 +396,6 @@
 			}
 			else {
 				movement.completed[setNumber] = {setNumber: setNumber, weight: movement.weight, reps: movement.reps};
-				console.log(movement);
 				$scope.startTimer(movement);
 				$scope.updateRoutineInProgress($rootScope.activeWorkout);
 			}
@@ -408,7 +404,6 @@
 		$scope.updateRoutineInProgress = function( workout ) {
 			dataService.routineInProgress(window.localStorage.getItem("userID"), workout)
 			.then(function (payload) {
-				console.log(payload);
 			});
 		};
 

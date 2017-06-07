@@ -5,7 +5,6 @@ module.exports = function(app, passport) {
     
     //get current user
     app.get('/api/user', function(req, res, done) {
-        console.log(req.user);
         if (!req.user) {
             res.status(403);
             res.send();
@@ -16,7 +15,6 @@ module.exports = function(app, passport) {
     });
     
     app.get('/api/users', isAdministrator, function(req, res, done) {
-        console.log(req.user);
             process.nextTick(function() {
                 User.find(function (err, users) {
                      res.status(200);
@@ -31,7 +29,6 @@ module.exports = function(app, passport) {
       process.nextTick(function() {
        User.findOne({ _id: req.params['id']}, function (err, user) {
             if (err) {
-                console.log(err);
                 res.status(500);
                 res.send();
             }
@@ -45,7 +42,6 @@ module.exports = function(app, passport) {
       process.nextTick(function() {
        User.findOne({ _id: req.params['id']}, function (err, user) {
             if (err) {
-                console.log(err);
                 res.status(500);
                 res.send();
             }
@@ -111,10 +107,9 @@ module.exports = function(app, passport) {
                     user.data.routineInProgress = {};
                 }
                 user.data.routineInProgress = req.body;
-                console.log(user.data.routineInProgress);
+                
                 user.save(function(err) {
                     if (err) {
-                        console.log(err);
                         res.status(500);
                         res.send();
                         return;
@@ -154,7 +149,6 @@ module.exports = function(app, passport) {
                 user.data.completedRoutines.push(req.body);
                 user.save(function(err) {
                     if (err) {
-                        console.log(err);
                         res.status(500);
                         res.send();
                         return;
@@ -184,7 +178,6 @@ module.exports = function(app, passport) {
             process.nextTick(function() {
                User.findOne({ 'local.email': req.params['email']}, function (err, user) {
                     if (err) {
-                        console.log(err);
                     }
                     if (req.body.permissions) {
                         user.permissions = req.body.permissions;
